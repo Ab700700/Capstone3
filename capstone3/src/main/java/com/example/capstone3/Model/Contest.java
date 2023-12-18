@@ -31,5 +31,12 @@ public class Contest {
     @Pattern(regexp = "public|private",message = "Status should be public or private")
     @Column(columnDefinition = "varchar(9) not null check(status='public' or status='private')")
     private String status;
+       @ManyToOne
+   @JoinColumn(name = "place_id",referencedColumnName = "id")
+   @JsonIgnore
+    private Place place;
+    @ManyToMany
+    @JsonIgnore
+    private Set<User> users;
 
 }

@@ -33,8 +33,10 @@ public class Order {
     @Pattern(regexp = "accepted|denied|pending")
     @Column(columnDefinition = "varchar(9) not null check(status='accepted' or status ='denied' or status ='pending')")
     private String status;
-
-
+    @ManyToOne
+    @JoinColumn(name="business_id",referencedColumnName = "id")
+    @JsonIgnore
+    private Business business;
 
     @ManyToOne
     @JoinColumn(name = "event_id",referencedColumnName = "id")
