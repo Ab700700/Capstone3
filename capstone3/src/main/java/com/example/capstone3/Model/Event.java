@@ -44,5 +44,5 @@ public class Event {
     private Company company;
 
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "event")
-    private Set<Order>orders;
+    private Set<Orders>orders;
 }

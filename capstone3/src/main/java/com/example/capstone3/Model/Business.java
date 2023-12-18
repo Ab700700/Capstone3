@@ -32,7 +32,7 @@ public class Business {
     private String email;
     @NotEmpty(message = "Status should not be empty")
     @Pattern(regexp = "active|notactive",message = "Status should be active or notactive")
-    @Column(columnDefinition = "varchar(10) not null check(status = 'active' or status='notactive')")
+    @Column(columnDefinition = "varchar(10) not null check(status = 'active' or status ='notactive')")
     private String  status;
     @NotEmpty(message = "Company name should not be empty")
     @Pattern(regexp = "[a-zA-Z]+",message = "Company name should be letters only")
@@ -51,5 +51,5 @@ public class Business {
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "business")
     private Set<Place> places;
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "business")
-    private Set<Order> orders;
+    private Set<Orders> orders;
 }
