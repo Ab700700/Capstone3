@@ -42,4 +42,7 @@ public class Event {
     @JoinColumn(name = "company_id",referencedColumnName = "id")
     @JsonIgnore
     private Company company;
+
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "event")
+    private Set<Order>orders;
 }

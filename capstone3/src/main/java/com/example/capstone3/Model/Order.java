@@ -1,5 +1,6 @@
 package com.example.capstone3.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
@@ -32,4 +33,9 @@ public class Order {
     @Pattern(regexp = "accepted|denied|pending")
     @Column(columnDefinition = "varchar(9) not null check(status='accepted' or status ='denied' or status ='pending')")
     private String status;
+
+    @ManyToOne
+    @JoinColumn(name = "event_id",referencedColumnName = "id")
+    @JsonIgnore
+    private Event event;
 }
