@@ -42,8 +42,8 @@ public class OrdersService {
         return"Order updated";
     }
 
-    public String deleteOrder(Integer bid, Integer even_id){
-        Orders order = orderRepository.findOrdersByBusinessAndEvent(bid,even_id);
+    public String deleteOrder(Integer bid, Integer event_id){
+        Orders order = orderRepository.findOrdersByBusinessAndEvent(bid,event_id);
         if(order == null) throw  new ApiException("Order not found");
         orderRepository.delete(order);
         return "Order canceled";
