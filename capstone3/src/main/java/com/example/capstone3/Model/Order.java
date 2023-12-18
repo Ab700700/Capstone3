@@ -35,4 +35,9 @@ public class Order {
     private String status;
 
 
+
+    @ManyToOne
+    @JoinColumn(name = "event_id",referencedColumnName = "id")
+    @JsonIgnore
+    private Event event;
 }
