@@ -11,6 +11,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Set;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -45,4 +47,9 @@ public class Business {
     @Size(min = 20, message = "Description should be at least 20 characters")
     @Column(columnDefinition = "varchar(255) not null")
     private String description;
+
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "business")
+    private Set<Place> places;
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "business")
+    private Set<Order> orders;
 }
