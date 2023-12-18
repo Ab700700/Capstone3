@@ -34,8 +34,5 @@ public class Order {
     @Column(columnDefinition = "varchar(9) not null check(status='accepted' or status ='denied' or status ='pending')")
     private String status;
 
-    @ManyToOne
-    @JoinColumn(name="business_id",referencedColumnName = "id")
-    @JsonIgnore
-    private Business business;
+
 }

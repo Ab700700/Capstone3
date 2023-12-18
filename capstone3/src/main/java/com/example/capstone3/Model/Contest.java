@@ -19,10 +19,10 @@ public class Contest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @NotNull(message = "Users should not be empty")
-    @Positive(message = "Users should be a positive number")
+    @NotNull(message = "competitors should not be empty")
+    @Positive(message = "competitors should be a positive number")
     @Column(columnDefinition = "int not null")
-    private Integer users;
+    private Integer competitors;
     @NotEmpty(message = "Description should not be empty")
     @Size(min = 20,message = "Description should be at least 20 characters")
     @Column(columnDefinition = "varchar(255) not null")
@@ -32,8 +32,4 @@ public class Contest {
     @Column(columnDefinition = "varchar(9) not null check(status='public' or status='private')")
     private String status;
 
-   @ManyToOne
-   @JoinColumn(name = "place_id",referencedColumnName = "id")
-   @JsonIgnore
-    private Place place;
 }
