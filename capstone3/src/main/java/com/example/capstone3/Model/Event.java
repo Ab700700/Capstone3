@@ -45,4 +45,6 @@ public class Event {
 
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "event")
     private Set<Orders>orders;
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "event")
+    private Set<Place>places;
 }

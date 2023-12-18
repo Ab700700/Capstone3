@@ -36,4 +36,9 @@ public class Place {
     private Business business;
     @OneToMany( cascade = CascadeType.ALL,mappedBy = "place")
     private Set<Contest> contests;
+
+    @ManyToOne
+    @JoinColumn(name = "event_id",referencedColumnName = "id")
+    @JsonIgnore
+    private Event event;
 }
