@@ -43,4 +43,7 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL , mappedBy = "user")
     private Set<Pass>passes;
 
+    @ManyToMany(mappedBy = "users")
+    private Set<Contest> contests;
+
 }

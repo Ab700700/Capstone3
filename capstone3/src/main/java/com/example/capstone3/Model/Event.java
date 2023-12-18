@@ -1,5 +1,6 @@
 package com.example.capstone3.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -36,4 +37,9 @@ public class Event {
 
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "event")
     private Set<Pass> passes;
+
+    @ManyToOne
+    @JoinColumn(name = "company_id",referencedColumnName = "id")
+    @JsonIgnore
+    private Company company;
 }

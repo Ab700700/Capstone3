@@ -10,6 +10,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Set;
+
 @Setter
 @Getter
 @AllArgsConstructor
@@ -44,4 +46,6 @@ public class Company {
     @NotNull(message = "profit should not be null")
     @Column(columnDefinition = "double not null")
     private Double profit;
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "company")
+    private Set<Event>events;
 }
