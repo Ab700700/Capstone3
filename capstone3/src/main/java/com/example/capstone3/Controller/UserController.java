@@ -23,7 +23,7 @@ public class UserController {
         userService.addUser(user);
         return ResponseEntity.status(HttpStatus.OK).body("user added");
     }
-    @PutMapping("/update/{id},{password}")
+    @PutMapping("/update/{id}/{password}")
     public ResponseEntity updateUser(@PathVariable Integer id,@PathVariable String password, @Valid @RequestBody User user){
         userService.updateUser(id,user,password);
         return ResponseEntity.status(HttpStatus.OK).body("user update");
@@ -32,6 +32,11 @@ public class UserController {
     public ResponseEntity deleteUser(@PathVariable Integer id){
         userService.deleteUser(id);
         return ResponseEntity.status(HttpStatus.OK).body("user delete");
+    }
+    @PutMapping("/{user_id}/assign/{pass_id}")
+    public ResponseEntity assignUserToPass(@PathVariable Integer user_id,@PathVariable Integer pass_id){
+        userService.assignUserToPass(user_id, pass_id);
+        return ResponseEntity.status(HttpStatus.OK).body("assign done");
     }
 
 }

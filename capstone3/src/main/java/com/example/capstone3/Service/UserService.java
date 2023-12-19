@@ -1,7 +1,9 @@
 package com.example.capstone3.Service;
 
 import com.example.capstone3.Api.ApiException;
+import com.example.capstone3.Model.Pass;
 import com.example.capstone3.Model.User;
+import com.example.capstone3.Repository.PassRepository;
 import com.example.capstone3.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
+    private final PassRepository passRepository;
 
 
     public List<User> getUsers(){
@@ -43,5 +46,18 @@ public class UserService {
             throw new ApiException("user id not found");
         }
         userRepository.delete(user);
+    }
+
+    public void assignUserToPass(Integer user_id,Integer pass_id){
+        Pass pass = passRepository.findPassById(pass_id);
+        User user =userRepository.findUserById(user_id);
+        if(user ==null){
+            throw new ApiException("user id not found");
+        }
+        if(pass==null){
+            throw new ApiException("pass id not found");
+        }
+        pass.setUser(user);
+        passRepository.save(pass);
     }
 }
