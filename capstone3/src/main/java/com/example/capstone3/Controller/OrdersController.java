@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.*;
 public class OrdersController {
 
     private final OrdersService ordersService;
-
+    @GetMapping("/get")
     public ResponseEntity getAllOrders(){
         return ResponseEntity.status(HttpStatus.OK).body(ordersService.getAllOrdres());
     }
-    @PostMapping("/add/")
+    @PostMapping("/add")
     public ResponseEntity addOrder(@RequestBody @Valid OrdersDTO orders){
         ordersService.addOrder(orders);
         return ResponseEntity.status(HttpStatus.OK).body("Order added");

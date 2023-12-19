@@ -2,6 +2,7 @@ package com.example.capstone3.DTO;
 
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -10,7 +11,7 @@ import lombok.Data;
 public class PlaceDTO {
 
     private Integer id ;
-    @NotEmpty(message = "event id should not be empty")
+    @NotNull(message = "event id should not be empty")
     private Integer event_id;
     @NotEmpty(message = "Company name should not be empty")
     @Column(columnDefinition = "varchar(50) not null unique")

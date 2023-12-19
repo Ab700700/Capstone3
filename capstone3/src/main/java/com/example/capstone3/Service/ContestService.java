@@ -24,7 +24,7 @@ public class ContestService {
     private final BusinessRepository businessRepository;
     private final UserRepository userRepository;
     public List<Contest> getAllContests(){
-        return contestRepository.findContestsByStatus("public");
+        return contestRepository.findAll();
     }
 
     public void addContest(ContestDTO contest){
@@ -57,9 +57,13 @@ public class ContestService {
 
     public String userAssignToContest(Integer uid, Integer contestid){
         User user = userRepository.findUserById(uid);
+        for(Contest c : user.getContests()){
+            if(c.getId().equals(contestid)) throw  new ApiException("User already there");
+        }
         if(user == null|| user.getRole().equals("admin")) throw  new ApiException("User not found or not allowed");
         Contest contest = contestRepository.findContestById(contestid);
         if(contest == null) throw new ApiException("Contest not found");
+        contest.setCompetitors(user.getContests().size());
         user.getContests().add(contest);
         contest.getUsers().add(user);
         contestRepository.save(contest);

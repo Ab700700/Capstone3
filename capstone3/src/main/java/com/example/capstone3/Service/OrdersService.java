@@ -33,7 +33,7 @@ public class OrdersService {
         if(place == null) throw new ApiException("Place not found");
         Event event = eventRepository.findEventById(orders.getEventid());
         if(event == null) throw  new ApiException("Event not found");
-        Orders newOrder = new Orders(null,orders.getCompanyName(),orders.getCapacity(),orders.getDescription(),orders.getStatus(),business,event,place);
+        Orders newOrder = new Orders(null,orders.getCompanyName(),orders.getCapacity(),orders.getDescription(),"pending",business,event,place);
         orderRepository.save(newOrder);
 
     }
@@ -44,7 +44,7 @@ public class OrdersService {
         if(oldOrder == null) throw new ApiException("Order not found");
         oldOrder.setDescription(orders.getDescription());
         oldOrder.setCapacity(orders.getCapacity());
-        oldOrder.setStatus(orders.getStatus());
+       // oldOrder.setStatus(orders.getStatus());
         oldOrder.setCompanyName(orders.getCompanyName());
         orderRepository.save(oldOrder);
         return"Order updated";
