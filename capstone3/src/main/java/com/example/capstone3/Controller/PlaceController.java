@@ -1,5 +1,6 @@
 package com.example.capstone3.Controller;
 
+import com.example.capstone3.DTO.PlaceDTO;
 import com.example.capstone3.Model.Place;
 import com.example.capstone3.Service.PlaceService;
 import jakarta.validation.Valid;
@@ -18,13 +19,13 @@ public class PlaceController {
     public ResponseEntity getAllPlaces(){
         return ResponseEntity.status(HttpStatus.OK).body(placeService.getAllPlaces());
     }
-    @PostMapping("add/{bid}/{event_id}")
-    public ResponseEntity addPlace(@PathVariable Integer bid, @PathVariable Integer event_id, @RequestBody @Valid Place place){
-        placeService.addPlace(bid,event_id,place);
+    @PostMapping("add/")
+    public ResponseEntity addPlace(@RequestBody @Valid PlaceDTO place){
+        placeService.addPlace(place);
         return ResponseEntity.status(HttpStatus.OK).body("Place added");
     }
     @PutMapping("/update/{id}")
-    public ResponseEntity updatePlace(@PathVariable Integer id , @RequestBody @Valid Place place){
+    public ResponseEntity updatePlace(@PathVariable Integer id , @RequestBody @Valid PlaceDTO place){
         return ResponseEntity.status(HttpStatus.OK).body(placeService.updatePlace(id,place));
     }
     @DeleteMapping("/delete/{id}")

@@ -1,5 +1,6 @@
 package com.example.capstone3.Controller;
 
+import com.example.capstone3.DTO.PassDTO;
 import com.example.capstone3.Model.Company;
 import com.example.capstone3.Model.Pass;
 import com.example.capstone3.Service.PassService;
@@ -20,12 +21,12 @@ public class PassController {
         return ResponseEntity.status(HttpStatus.OK).body(passService.getPasses());
     }
     @PostMapping("/add")
-    public ResponseEntity addPass(@Valid @RequestBody Pass pass){
+    public ResponseEntity addPass(@Valid @RequestBody PassDTO pass){
         passService.addPass(pass);
         return ResponseEntity.status(HttpStatus.OK).body("pass added");
     }
     @PutMapping("/update/{id}")
-    public ResponseEntity updatePass(@PathVariable Integer id, @Valid @RequestBody Pass pass){
+    public ResponseEntity updatePass(@PathVariable Integer id, @Valid @RequestBody PassDTO pass){
         passService.updatePass(id,pass);
         return ResponseEntity.status(HttpStatus.OK).body("pass update");
     }
