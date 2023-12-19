@@ -32,4 +32,14 @@ public class PlaceController {
     public ResponseEntity deletePlace(@PathVariable Integer id){
         return ResponseEntity.status(HttpStatus.OK).body(placeService.deletePlace(id));
     }
+
+    @GetMapping("/search/{name}")
+    public ResponseEntity searchByCompanyName(@PathVariable String name){
+        return ResponseEntity.status(HttpStatus.OK).body(placeService.searchByCompanyName(name));
+    }
+    @GetMapping("/search-category/{word}")
+    public ResponseEntity searchByCategory(@PathVariable String word){
+        return ResponseEntity.status(HttpStatus.OK).body(placeService.searchByCategory(word));
+    }
+
 }

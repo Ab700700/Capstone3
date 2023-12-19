@@ -38,5 +38,17 @@ public class ContestController {
         public ResponseEntity assignToContest(@PathVariable Integer uid,@PathVariable Integer contestid){
             return ResponseEntity.status(HttpStatus.OK).body(contestService.userAssignToContest(uid,contestid));
         }
+        @GetMapping("/search/{status}")
+        public ResponseEntity searchByStatus(@PathVariable String status){
+            return ResponseEntity.status(HttpStatus.OK).body(contestService.searchByStatus(status));
+        }
+        @GetMapping("/search-low/{number}")
+        public ResponseEntity searchBelow(@PathVariable Integer number){
+            return ResponseEntity.status(HttpStatus.OK).body(contestService.searchBelow(number));
+        }
+        @GetMapping("/search-greater/{number}")
+        public ResponseEntity searchAbove(@PathVariable Integer number){
+            return ResponseEntity.status(HttpStatus.OK).body(contestService.searchAbove(number));
+        }
 
 }

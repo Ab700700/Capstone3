@@ -37,4 +37,12 @@ public class BusinessService {
         businessRepository.delete(business);
         return "Business deleted";
     }
+
+    public List<Business> businessesByStatus(String status){
+        return businessRepository.findBusinessesByStatus(status);
+    }
+
+    public Business businessByName(String name){
+        return businessRepository.findBusinessByCompanyName(name);
+    }
 }

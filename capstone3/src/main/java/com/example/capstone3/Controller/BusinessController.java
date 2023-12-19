@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/business")
+@RequestMapping("/api/v1/event/business")
 @RequiredArgsConstructor
 public class BusinessController {
     private final BusinessService businessService;
@@ -29,5 +29,13 @@ public class BusinessController {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity deleteBusiness(@PathVariable Integer id){
         return ResponseEntity.status(HttpStatus.OK).body(businessService.deleteBusiness(id));
+    }
+    @GetMapping("/search-by-status/{status}")
+    public ResponseEntity businessesByStatus(@PathVariable String status){
+        return ResponseEntity.status(HttpStatus.OK).body(businessService.businessesByStatus(status));
+    }
+    @GetMapping("/search/{name}")
+    public ResponseEntity busniessByName(@PathVariable String name){
+        return ResponseEntity.status(HttpStatus.OK).body(businessService.businessByName(name));
     }
 }

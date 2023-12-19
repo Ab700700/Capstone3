@@ -70,4 +70,15 @@ public class ContestService {
         userRepository.save(user);
         return user.getFirstname()+" "+user.getLastname()+" assigned to contest id: "+contest.getId();
     }
+
+    public List<Contest> searchByStatus(String status){
+        return contestRepository.findContestsByStatus(status);
+    }
+
+    public List<Contest> searchBelow(Integer number){
+        return contestRepository.findContestsByCompetitorsBefore(number);
+    }
+    public List<Contest> searchAbove(Integer number){
+        return contestRepository.findContestByCompetitorsAfter(number);
+    }
 }

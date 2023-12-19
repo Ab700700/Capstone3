@@ -12,4 +12,7 @@ public interface ContestRepository extends JpaRepository<Contest,Integer> {
     Contest findContestById(Integer id);
 
     List<Contest> findContestsByStatus(String status);
+
+    List<Contest> findContestsByCompetitorsBefore(Integer number);
+    List<Contest> findContestByCompetitorsAfter(Integer number);
 }

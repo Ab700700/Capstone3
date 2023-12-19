@@ -50,5 +50,12 @@ public class PlaceService {
         return "Place deleted";
     }
 
+    public List<Place> searchByCompanyName(String name){
+        return placeRepository.findPlacesByCompanyName(name);
+    }
+
+    public List<Place> searchByCategory(String category){
+        return placeRepository.findPlacesByCategoryStartsWith(category);
+    }
 
 }
