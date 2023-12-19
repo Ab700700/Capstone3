@@ -11,7 +11,7 @@ public class ContestDTO {
 
     private Integer placeid;
     @NotNull(message = "competitors should not be empty")
-    @Positive(message = "competitors should be a positive number")
+    @PositiveOrZero(message = "competitors should be a positive number")
     private Integer competitors;
     @NotEmpty(message = "Description should not be empty")
     @Size(min = 20,message = "Description should be at least 20 characters")

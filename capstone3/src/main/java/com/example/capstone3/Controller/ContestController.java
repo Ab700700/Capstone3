@@ -34,5 +34,9 @@ public class ContestController {
         public ResponseEntity deleteContest(@PathVariable Integer id){
             return  ResponseEntity.status(HttpStatus.OK).body(contestService.deleteContest(id));
         }
+        @PutMapping("/{uid}/assign/{contestid}")
+        public ResponseEntity assignToContest(@PathVariable Integer uid,@PathVariable Integer contestid){
+            return ResponseEntity.status(HttpStatus.OK).body(contestService.userAssignToContest(uid,contestid));
+        }
 
 }
