@@ -1,6 +1,7 @@
 package com.example.capstone3.Service;
 
 import com.example.capstone3.Api.ApiException;
+import com.example.capstone3.DTO.ContestDTO;
 import com.example.capstone3.Model.Business;
 import com.example.capstone3.Model.Contest;
 import com.example.capstone3.Model.Place;
@@ -23,21 +24,24 @@ public class ContestService {
         return contestRepository.findContestsByStatus("public");
     }
 
-    public void addContest(Integer pid,Contest contest){
-        Place place = placeRepository.findPlaceById(pid);
+    public void addContest(ContestDTO contest){
+        Place place = placeRepository.findPlaceById(contest.getPlaceid());
         if(place == null) throw new ApiException("Place not found");
-        place.getContests().add(contest);
+        Contest contest1 = new Contest(null,0,contest.getDescription(),contest.getStatus(),place,null);
+        place.getContests().add(contest1);
         placeRepository.save(place);
-        contestRepository.save(contest);
+        contestRepository.save(contest1);
     }
 
-    public String updateContest(Integer id, Contest contest){
+    public String updateContest(Integer id, ContestDTO contest){
         Contest oldContest = contestRepository.findContestById(id);
-        if(oldContest == null || !oldContest.getPlace().equals(contest.getPlace())) throw new ApiException("Contest is not there");
-        Business business = businessRepository.findBusinessByCompanyName(contest.getPlace().getCompanyName());
+        if(oldContest == null) throw new ApiException("Contest is not there");
+        Business business = businessRepository.findBusinessByCompanyName(placeRepository.findPlaceById(contest.getPlaceid()).getCompanyName());
         if(business == null) throw  new ApiException("Business account not found");
-        contest.setId(id);
-        contestRepository.save(contest);
+        oldContest.setCompetitors(contest.getCompetitors());
+        oldContest.setStatus(contest.getStatus());
+        oldContest.setDescription(contest.getDescription());
+        contestRepository.save(oldContest);
         return "Contest updated";
     }
 

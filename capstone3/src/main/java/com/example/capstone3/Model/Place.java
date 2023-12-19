@@ -41,4 +41,7 @@ public class Place {
     @JoinColumn(name = "event_id",referencedColumnName = "id")
     @JsonIgnore
     private Event event;
+
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "placeorder")
+    private Set<Orders> orders;
 }

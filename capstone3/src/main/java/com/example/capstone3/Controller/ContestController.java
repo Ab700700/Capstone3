@@ -1,5 +1,6 @@
 package com.example.capstone3.Controller;
 
+import com.example.capstone3.DTO.ContestDTO;
 import com.example.capstone3.Model.Contest;
 import com.example.capstone3.Service.ContestService;
 import jakarta.validation.Valid;
@@ -20,13 +21,13 @@ public class ContestController {
             return ResponseEntity.status(HttpStatus.OK).body(contestService.getAllContests());
         }
         @PostMapping("/add")
-        public ResponseEntity addContest(@PathVariable Integer pid, @RequestBody @Valid Contest contest){
-            contestService.addContest(pid,contest);
+        public ResponseEntity addContest( @RequestBody @Valid ContestDTO contest){
+            contestService.addContest(contest);
             return ResponseEntity.status(HttpStatus.OK).body("Contest added");
         }
 
         @PutMapping("/update/{id}")
-        public ResponseEntity updateContest(@PathVariable Integer id, @RequestBody @Valid Contest contest){
+        public ResponseEntity updateContest(@PathVariable Integer id, @RequestBody @Valid ContestDTO contest){
             return ResponseEntity.status(HttpStatus.OK).body(contestService.updateContest(id,contest));
         }
         @DeleteMapping("/delete/{id}")
