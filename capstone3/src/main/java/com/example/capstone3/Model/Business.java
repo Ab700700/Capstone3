@@ -30,6 +30,10 @@ public class Business {
     @Email(message = "Email should be valid")
     @Column(columnDefinition = "varchar(50) not null unique ")
     private String email;
+    @NotEmpty(message = "Password should not be empty")
+    @Size(min = 8, message = "Password should be at least 8 characters")
+    @Column(columnDefinition = "varchar(20) not null")
+    private String password;
     @NotEmpty(message = "Status should not be empty")
     @Pattern(regexp = "active|notactive",message = "Status should be active or notactive")
     @Column(columnDefinition = "varchar(10) not null check(status = 'active' or status ='notactive')")

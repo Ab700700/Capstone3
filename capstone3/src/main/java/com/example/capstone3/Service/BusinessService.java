@@ -19,12 +19,13 @@ public class BusinessService {
     }
 
     public void addBusiness(Business business){
+        business.setStatus("notactive");
         businessRepository.save(business);
     }
 
-    public String updateBusiness(Integer id, Business business){
+    public String updateBusiness(Integer id,String password, Business business){
         Business oldBusiness = businessRepository.findBusinessById(id);
-        if(oldBusiness == null) throw new ApiException("Business not found");
+        if(oldBusiness == null|| !oldBusiness.getPassword().equals(password)) throw new ApiException("Business not found or password is wrong");
         business.setId(id);
         businessRepository.save(business);
         return "Business updated";

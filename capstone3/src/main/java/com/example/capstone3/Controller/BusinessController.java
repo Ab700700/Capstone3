@@ -22,9 +22,9 @@ public class BusinessController {
         businessService.addBusiness(business);
         return ResponseEntity.status(HttpStatus.OK).body("Business added");
     }
-    @PutMapping("/update/{id}")
-    public ResponseEntity updateBusiness(@PathVariable Integer id, @RequestBody @Valid Business business){
-        return ResponseEntity.status(HttpStatus.OK).body(businessService.updateBusiness(id,business));
+    @PutMapping("/update/{id}/{password}")
+    public ResponseEntity updateBusiness(@PathVariable Integer id, @PathVariable String password,@RequestBody @Valid Business business){
+        return ResponseEntity.status(HttpStatus.OK).body(businessService.updateBusiness(id,password,business));
     }
     @DeleteMapping("/delete/{id}")
     public ResponseEntity deleteBusiness(@PathVariable Integer id){
