@@ -23,9 +23,9 @@ public class UserController {
         userService.addUser(user);
         return ResponseEntity.status(HttpStatus.OK).body("user added");
     }
-    @PutMapping("/update/{id}")
-    public ResponseEntity updateUser(@PathVariable Integer id, @Valid @RequestBody User user){
-        userService.updateUser(id, user);
+    @PutMapping("/update/{id},{password}")
+    public ResponseEntity updateUser(@PathVariable Integer id,@PathVariable String password, @Valid @RequestBody User user){
+        userService.updateUser(id,user,password);
         return ResponseEntity.status(HttpStatus.OK).body("user update");
     }
     @DeleteMapping("/delete/{id}")

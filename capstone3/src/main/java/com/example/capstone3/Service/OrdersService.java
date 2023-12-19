@@ -33,21 +33,21 @@ public class OrdersService {
         businessRepository.save(business);
         eventRepository.save(event);
     }
-
-    public String updateOrder(Integer bid ,Integer event_id, Orders orders){
-        Orders oldOrder = orderRepository.findOrdersByBusinessAndEvent(bid,event_id);
-        if(oldOrder == null) throw new ApiException("Order not found");
-        orders.setId(oldOrder.getId());
-        orderRepository.save(orders);
-        return"Order updated";
-    }
-
-    public String deleteOrder(Integer bid, Integer even_id){
-        Orders order = orderRepository.findOrdersByBusinessAndEvent(bid,even_id);
-        if(order == null) throw  new ApiException("Order not found");
-        orderRepository.delete(order);
-        return "Order canceled";
-    }
+//
+//    public String updateOrder(Integer bid ,Integer event_id, Orders orders){
+//        Orders oldOrder = orderRepository.findOrdersByBusinessAndEvent(bid,event_id);
+//        if(oldOrder == null) throw new ApiException("Order not found");
+//        orders.setId(oldOrder.getId());
+//        orderRepository.save(orders);
+//        return"Order updated";
+//    }
+//
+//    public String deleteOrder(Integer bid, Integer even_id){
+//        Orders order = orderRepository.findOrdersByBusinessAndEvent(bid,even_id);
+//        if(order == null) throw  new ApiException("Order not found");
+//        orderRepository.delete(order);
+//        return "Order canceled";
+//    }
 
 
 

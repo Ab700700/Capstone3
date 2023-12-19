@@ -1,5 +1,6 @@
 package com.example.capstone3.Controller;
 
+import com.example.capstone3.DTO.EventDTO;
 import com.example.capstone3.Model.Event;
 import com.example.capstone3.Service.EventService;
 import jakarta.validation.Valid;
@@ -20,12 +21,12 @@ public class EventController {
         return ResponseEntity.status(HttpStatus.OK).body(eventService.getEvents());
     }
     @PostMapping("/add")
-    public ResponseEntity addEvent(@Valid @RequestBody Event event){
+    public ResponseEntity addEvent(@Valid @RequestBody EventDTO event){
         eventService.addEvent(event);
         return ResponseEntity.status(HttpStatus.OK).body("event added");
     }
     @PutMapping("/update/{id}")
-    public ResponseEntity updateEvent(@PathVariable Integer id, @Valid @RequestBody Event event){
+    public ResponseEntity updateEvent(@PathVariable Integer id, @Valid @RequestBody EventDTO event){
         eventService.updateEvent(id, event);
         return ResponseEntity.status(HttpStatus.OK).body("event update");
     }

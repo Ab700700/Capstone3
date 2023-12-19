@@ -20,19 +20,20 @@ public class UserService {
     }
 
     public void addUser(User user){
+        user.setRole("visitor");
         userRepository.save(user);
     }
 
-    public void updateUser(Integer id , User user){
+    public void updateUser(Integer id , User user,String password){
         User oldUser = userRepository.findUserById(id);
-        if(oldUser==null){
-            throw new ApiException("user id not found");
+        if(oldUser==null||!oldUser.getPassword().equals(password)){
+            throw new ApiException("user id not found or wrong password");
         }
+
         oldUser.setFirstname(user.getFirstname());
         oldUser.setLastname(user.getLastname());
         oldUser.setEmail(user.getEmail());
         oldUser.setPhone_number(user.getPhone_number());
-        oldUser.setRole(user.getRole());
         userRepository.save(oldUser);
     }
 

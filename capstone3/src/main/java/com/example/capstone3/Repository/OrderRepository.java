@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 public interface OrderRepository extends JpaRepository<Orders,Integer> {
 
     Orders findOrderById(Integer id);
-    Orders findOrdersByBusinessAndEvent(Integer bid, Integer event_id);
+//    Orders findOrdersByBusinessAndEvent(Integer bid, Integer event_id);
 }
