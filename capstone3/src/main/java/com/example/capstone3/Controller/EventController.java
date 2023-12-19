@@ -5,9 +5,12 @@ import com.example.capstone3.Model.Event;
 import com.example.capstone3.Service.EventService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Date;
 
 @RestController
 @RequiredArgsConstructor
@@ -34,5 +37,15 @@ public class EventController {
     public ResponseEntity deleteEvent(@PathVariable Integer id){
         eventService.deleteEvent(id);
         return ResponseEntity.status(HttpStatus.OK).body("event delete");
+    }
+    @GetMapping("/getEventBetweenDate/{date}")
+    public ResponseEntity getEventBetweenDate(@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date date){
+
+        return ResponseEntity.status(HttpStatus.OK).body(eventService.getEventBetweenDate(date));
+    }
+    @GetMapping("/getEventAvailable")
+    public ResponseEntity getEventAvailable(){
+
+        return ResponseEntity.status(HttpStatus.OK).body(eventService.getEventAvailable());
     }
 }

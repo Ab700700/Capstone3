@@ -45,4 +45,19 @@ public class CompanyService {
         }
         companyRepository.delete(company);
     }
+
+    public List<Company> getCompanyByStatus(String status){
+        List<Company> companies =companyRepository.findCompaniesByStatus(status);
+        if(companies.isEmpty()){
+            throw new ApiException("no company with this status");
+        }
+        return companies;
+    }
+    public List<Company> getByCompanyName(String name){
+        List<Company> companies =companyRepository.findCompaniesByCompany_name(name);
+        if(companies.isEmpty()){
+            throw new ApiException("no company with this name");
+        }
+        return companies;
+    }
 }

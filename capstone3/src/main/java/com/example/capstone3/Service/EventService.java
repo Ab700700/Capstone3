@@ -9,6 +9,7 @@ import com.example.capstone3.Repository.EventRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -28,11 +29,6 @@ public class EventService {
             throw new ApiException("company id not found");
         }
         Event event1=new Event(null, event.getEvent_name(),event.getStart_date(),event.getEnd_date(),event.getTickets(),null,company,null,null);
-//        event1.setEvent_name(event.getEvent_name());
-//        event1.setStart_date(event.getStart_date());
-//        event1.setEnd_date(event.getEnd_date());
-//        event1.setTickets(event.getTickets());
-//        event1.setCompany(company);
         eventRepository.save(event1);
     }
 
@@ -57,5 +53,22 @@ public class EventService {
         company.setEvents(null);
         eventRepository.delete(event);
         companyRepository.save(company);
+    }
+
+
+    public List<Event> getEventBetweenDate(Date date){
+        List<Event> events = eventRepository.EventByStart_dateAfterAndEnd_dateBefore(date);
+        if(events.isEmpty()){
+            throw new ApiException("no events between this date");
+        }
+        return events;
+    }
+
+    public List<Event> getEventAvailable(){
+        List<Event> events = eventRepository.findEventByTicketsGreaterThan(0);
+        if(events.isEmpty()){
+            throw new ApiException("no events available");
+        }
+        return events;
     }
 }

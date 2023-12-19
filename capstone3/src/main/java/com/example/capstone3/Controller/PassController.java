@@ -6,9 +6,12 @@ import com.example.capstone3.Model.Pass;
 import com.example.capstone3.Service.PassService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Date;
 
 @RestController
 @RequiredArgsConstructor
@@ -35,5 +38,29 @@ public class PassController {
         passService.deletePass(id);
         return ResponseEntity.status(HttpStatus.OK).body("pass delete");
     }
+
+    //get all passes by user id
+    @GetMapping("/getByUser/{id}")
+    public ResponseEntity getPassByUser(@PathVariable Integer id){
+
+        return ResponseEntity.status(HttpStatus.OK).body(passService.getPassByUser(id));
+    }
+
+    @GetMapping("/getByStatus/{status}")
+    public ResponseEntity getPassByStatus(@PathVariable String status){
+
+        return ResponseEntity.status(HttpStatus.OK).body(passService.getPassByStatus(status));
+    }
+    @GetMapping("/getBetweenPrice/{start_price}/{end_price}")
+    public ResponseEntity getPassBetweenPrice(@PathVariable Double start_price ,@PathVariable Double end_price){
+
+        return ResponseEntity.status(HttpStatus.OK).body(passService.getPassBetweenPrice(start_price, end_price));
+    }
+    @GetMapping("/getBetweenDate/{date}")
+    public ResponseEntity getPassBetweenDate(@PathVariable@DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
+
+        return ResponseEntity.status(HttpStatus.OK).body(passService.getPassBetweenDate(date));
+    }
+
 }
 

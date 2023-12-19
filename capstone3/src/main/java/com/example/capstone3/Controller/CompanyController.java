@@ -34,4 +34,12 @@ public class CompanyController {
         companyService.deleteCompany(id);
         return ResponseEntity.status(HttpStatus.OK).body("company delete");
     }
+    @GetMapping("/getCompanyByStatus/{status}")
+    public ResponseEntity getCompanyByStatus(@PathVariable String status){
+        return ResponseEntity.status(HttpStatus.OK).body(companyService.getCompanyByStatus(status));
+    }
+    @GetMapping("/getByCompanyName/{name}")
+    public ResponseEntity getByCompanyName(@PathVariable String name){
+        return ResponseEntity.status(HttpStatus.OK).body(companyService.getByCompanyName(name));
+    }
 }

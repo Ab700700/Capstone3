@@ -60,4 +60,5 @@ public class UserService {
         pass.setUser(user);
         passRepository.save(pass);
     }
+
 }

@@ -9,6 +9,7 @@ import com.example.capstone3.Repository.PassRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -52,4 +53,39 @@ public class PassService {
         }
         passRepository.delete(pass);
     }
+
+    public List<Pass> getPassByUser(Integer id){
+        List<Pass> passes = passRepository.findPassesById(id);
+        if(passes.isEmpty()){
+            throw new ApiException("no passes for this id");
+        }
+        return passes;
+    }
+
+    public List<Pass> getPassByStatus(String string){
+        List<Pass> passes = passRepository.findPassByStatus(string);
+        if(passes.isEmpty()){
+            throw new ApiException("no passes with this status");
+        }
+        return passes;
+    }
+
+    public List<Pass> getPassBetweenPrice(Double start_price,Double end_price){
+        List<Pass> passes = passRepository.findPassByPriceBetween(start_price, end_price);
+        if(passes.isEmpty()){
+            throw new ApiException("no passes between these prices");
+        }
+        return passes;
+    }
+
+    public List<Pass> getPassBetweenDate(Date date){
+
+        List<Pass> passes = passRepository.PassByStart_dateAfterAndEnd_dateBefore(date);
+        if(passes.isEmpty()){
+            throw new ApiException("no passes between these date");
+        }
+        return passes;
+    }
+
+
 }
