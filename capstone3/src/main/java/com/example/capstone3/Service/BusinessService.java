@@ -18,7 +18,7 @@ public class BusinessService {
         return businessRepository.findAll();
     }
 
-    public void addBusniess(Business business){
+    public void addBusiness(Business business){
         businessRepository.save(business);
     }
 
