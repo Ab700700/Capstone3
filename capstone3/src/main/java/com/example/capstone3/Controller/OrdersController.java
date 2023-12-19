@@ -23,12 +23,12 @@ public class OrdersController {
         ordersService.addOrder(bid, event_id, orders);
         return ResponseEntity.status(HttpStatus.OK).body("Order added");
     }
-    @PutMapping("/update/{bid}/{event_id}")
-    public ResponseEntity updateOrder(@PathVariable Integer bid, @PathVariable Integer event_id , @RequestBody @Valid Orders orders){
-        return ResponseEntity.status(HttpStatus.OK).body(ordersService.updateOrder(bid,event_id,orders));
-    }
-    @DeleteMapping("/delete/{bid}/{event_id}")
-    public ResponseEntity deleteOrder(@PathVariable Integer bid , @PathVariable Integer event_id){
-        return ResponseEntity.status(HttpStatus.OK).body(ordersService.deleteOrder(bid,event_id));
-    }
+//    @PutMapping("/update/{bid}/{event_id}")
+//    public ResponseEntity updateOrder(@PathVariable Integer bid, @PathVariable Integer event_id , @RequestBody @Valid Orders orders){
+//        return ResponseEntity.status(HttpStatus.OK).body(ordersService.updateOrder(bid,event_id,orders));
+//    }
+//    @DeleteMapping("/delete/{bid}/{event_id}")
+//    public ResponseEntity deleteOrder(@PathVariable Integer bid , @PathVariable Integer event_id){
+//        return ResponseEntity.status(HttpStatus.OK).body(ordersService.deleteOrder(bid,event_id));
+//    }
 }

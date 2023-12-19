@@ -27,12 +27,12 @@ public class EventService {
         if(company==null){
             throw new ApiException("company id not found");
         }
-        Event event1=new Event();
-        event1.setEvent_name(event.getEvent_name());
-        event1.setStart_date(event.getStart_date());
-        event1.setEnd_date(event.getEnd_date());
-        event1.setTickets(event.getTickets());
-        event1.setCompany(company);
+        Event event1=new Event(null, event.getEvent_name(),event.getStart_date(),event.getEnd_date(),event.getTickets(),null,company,null,null);
+//        event1.setEvent_name(event.getEvent_name());
+//        event1.setStart_date(event.getStart_date());
+//        event1.setEnd_date(event.getEnd_date());
+//        event1.setTickets(event.getTickets());
+//        event1.setCompany(company);
         eventRepository.save(event1);
     }
 
