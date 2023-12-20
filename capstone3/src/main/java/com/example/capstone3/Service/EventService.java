@@ -28,6 +28,9 @@ public class EventService {
         if(company==null){
             throw new ApiException("company id not found");
         }
+        if(!company.getStatus().equals("active")){
+            throw new ApiException("company not active");
+        }
         Event event1=new Event(null, event.getEvent_name(),event.getStart_date(),event.getEnd_date(),event.getTickets(),null,company,null,null);
         eventRepository.save(event1);
     }
@@ -50,6 +53,7 @@ public class EventService {
         if(event==null || company==null){
             throw new ApiException("event or company id not found");
         }
+
         company.setEvents(null);
         eventRepository.delete(event);
         companyRepository.save(company);

@@ -29,7 +29,7 @@ public class PassService {
         if(event==null){
             throw new ApiException("event id not found");
         }
-        Pass pass1 = new Pass(null, pass.getStatus(), pass.getStart_date(),pass.getEnd_date(),pass.getPrice(),null,event);
+        Pass pass1 = new Pass(null, "notactive", pass.getStart_date(),pass.getEnd_date(),pass.getPrice(),null,event);
         passRepository.save(pass1);
     }
 
@@ -41,7 +41,6 @@ public class PassService {
         }
         oldPass.setStart_date(pass.getStart_date());
         oldPass.setEnd_date(pass.getEnd_date());
-        oldPass.setStatus(pass.getStatus());
         oldPass.setPrice(pass.getPrice());
         passRepository.save(oldPass);
     }

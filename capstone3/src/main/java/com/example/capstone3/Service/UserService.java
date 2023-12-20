@@ -1,14 +1,8 @@
 package com.example.capstone3.Service;
 
 import com.example.capstone3.Api.ApiException;
-import com.example.capstone3.Model.Business;
-import com.example.capstone3.Model.Company;
-import com.example.capstone3.Model.Pass;
-import com.example.capstone3.Model.User;
-import com.example.capstone3.Repository.BusinessRepository;
-import com.example.capstone3.Repository.CompanyRepository;
-import com.example.capstone3.Repository.PassRepository;
-import com.example.capstone3.Repository.UserRepository;
+import com.example.capstone3.Model.*;
+import com.example.capstone3.Repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,6 +16,7 @@ public class UserService {
     private final PassRepository passRepository;
     private final CompanyRepository companyRepository;
     private final BusinessRepository businessRepository;
+    private final EventRepository eventRepository;
 
 
     public List<User> getUsers(){
@@ -63,8 +58,18 @@ public class UserService {
         if(pass==null){
             throw new ApiException("pass id not found");
         }
+        if(pass.getStatus().equals("active")){
+            throw new ApiException("the pass is taken");
+        }
+        Event event = pass.getEvent();
+        Company company =event.getCompany();
+        event.setTickets(event.getTickets()-1);
+        company.setProfit(company.getProfit()+pass.getPrice());
         pass.setUser(user);
+        pass.setStatus("active");
         passRepository.save(pass);
+        eventRepository.save(event);
+        companyRepository.save(company);
     }
 
 

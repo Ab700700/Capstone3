@@ -2,9 +2,7 @@ package com.example.capstone3.Model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,8 +19,9 @@ public class Pass {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @NotNull(message = "event name should not be null")
-    @Column(columnDefinition = "varchar(255) not null")
+    @NotEmpty(message = "Status should not be empty")
+    @Pattern(regexp = "active|notactive",message = "Status should be active or notactive")
+    @Column(columnDefinition = "varchar(10) not null check(status = 'active' or status ='notactive')")
     private String status;
     @NotNull(message = "start date should not be null")
     @Column(columnDefinition = "date not null")
