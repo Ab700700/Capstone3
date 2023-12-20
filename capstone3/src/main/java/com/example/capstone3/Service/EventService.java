@@ -31,7 +31,7 @@ public class EventService {
         if(!company.getStatus().equals("active")){
             throw new ApiException("company not active");
         }
-        Event event1=new Event(null, event.getEvent_name(),event.getStart_date(),event.getEnd_date(),event.getTickets(),null,company,null,null);
+        Event event1=new Event(null, event.getEvent_name(), event.getStart_date(),event.getEnd_date(),event.getTickets(),event.getCategory(),event.getCity(),null,company,null,null);
         eventRepository.save(event1);
     }
 
@@ -72,6 +72,20 @@ public class EventService {
         List<Event> events = eventRepository.findEventByTicketsGreaterThan(0);
         if(events.isEmpty()){
             throw new ApiException("no events available");
+        }
+        return events;
+    }
+    public List<Event> getEventByCategory(String category){
+        List<Event> events = eventRepository.findEventByCategory(category);
+        if(events.isEmpty()){
+            throw new ApiException("no events with this category");
+        }
+        return events;
+    }
+    public List<Event> getEventByCity(String city){
+        List<Event> events = eventRepository.findEventByCity(city);
+        if(events.isEmpty()){
+            throw new ApiException("no events with this city");
         }
         return events;
     }

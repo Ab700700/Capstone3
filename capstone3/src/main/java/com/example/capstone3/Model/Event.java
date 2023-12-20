@@ -29,6 +29,10 @@ public class  Event {
     private Date end_date;
     @Column(columnDefinition = "int not null check(tickets>0)")
     private Integer tickets;
+    @Column(columnDefinition = "varchar(20) not null")
+    private String category;
+    @Column(columnDefinition = "varchar(20) not null")
+    private String city;
 
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "event")
     private Set<Pass> passes;

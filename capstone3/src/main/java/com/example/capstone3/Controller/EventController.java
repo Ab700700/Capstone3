@@ -48,4 +48,15 @@ public class EventController {
 
         return ResponseEntity.status(HttpStatus.OK).body(eventService.getEventAvailable());
     }
+    @GetMapping("/getEventByCategory/{category}")
+    public ResponseEntity getEventByCategory(@PathVariable String category){
+
+        return ResponseEntity.status(HttpStatus.OK).body(eventService.getEventByCategory(category));
+    }
+    @GetMapping("/getEventByCity/{city}")
+    public ResponseEntity getEventByCity(@PathVariable String city){
+
+        return ResponseEntity.status(HttpStatus.OK).body(eventService.getEventByCity(city));
+    }
 }
+

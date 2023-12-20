@@ -22,4 +22,8 @@ public class EventDTO {
     @NotNull(message = "tickets should not be null")
     @Positive(message = "tickets should be positive")
     private Integer tickets;
+    @NotNull(message = "category should not be null")
+    private String category;
+    @NotNull(message = "city should not be null")
+    private String city;
 }

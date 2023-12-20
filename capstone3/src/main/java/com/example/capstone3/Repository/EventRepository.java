@@ -16,4 +16,6 @@ public interface EventRepository extends JpaRepository<Event,Integer> {
     List<Event> EventByStart_dateAfterAndEnd_dateBefore(Date date);
 
     List<Event> findEventByTicketsGreaterThan(Integer tickets);
+    List<Event> findEventByCategory(String category);
+    List<Event> findEventByCity(String city);
 }
