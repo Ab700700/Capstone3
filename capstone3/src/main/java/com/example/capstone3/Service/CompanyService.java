@@ -19,6 +19,7 @@ public class CompanyService {
     }
 
     public void addCompany(Company company){
+        company.setStatus("notactive");
         companyRepository.save(company);
     }
 
@@ -31,7 +32,6 @@ public class CompanyService {
         oldCompany.setPassword(company.getPassword());
         oldCompany.setEmail(company.getEmail());
         oldCompany.setPhone_number(company.getPhone_number());
-        oldCompany.setStatus(company.getStatus());
         oldCompany.setPermission(company.getPermission());
         oldCompany.setCommercial_register_num(company.getCommercial_register_num());
         oldCompany.setProfit(company.getProfit());

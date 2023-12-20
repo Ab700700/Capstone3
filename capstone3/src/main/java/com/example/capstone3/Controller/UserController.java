@@ -38,5 +38,16 @@ public class UserController {
         userService.assignUserToPass(user_id, pass_id);
         return ResponseEntity.status(HttpStatus.OK).body("assign done");
     }
+    @PutMapping("/activateCompany/{user_id}/{company_id}")
+    public ResponseEntity ActivateCompany(@PathVariable Integer user_id ,@PathVariable Integer company_id){
+        userService.ActivateCompany(user_id, company_id);
+        return ResponseEntity.status(HttpStatus.OK).body("company activated");
+    }
+    @PutMapping("/activateBusiness/{user_id}/{business_id}")
+    public ResponseEntity ActivateBusiness(@PathVariable Integer user_id ,@PathVariable Integer business_id){
+        userService.ActivateBusiness(user_id, business_id);
+        return ResponseEntity.status(HttpStatus.OK).body("business activated");
+    }
+
 
 }

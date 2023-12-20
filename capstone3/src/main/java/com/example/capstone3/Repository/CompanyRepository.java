@@ -14,4 +14,6 @@ public interface CompanyRepository extends JpaRepository<Company,Integer> {
     List<Company> findCompaniesByStatus(String status);
     @Query("select c from Company c where c.company_name=?1")
     List<Company> findCompaniesByCompany_name(String company_name);
+
+    Company findCompaniesByIdAndStatus(Integer id,String status);
 }

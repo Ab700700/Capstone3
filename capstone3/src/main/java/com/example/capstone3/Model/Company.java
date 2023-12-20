@@ -1,10 +1,7 @@
 package com.example.capstone3.Model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,6 +31,9 @@ public class Company {
     @NotNull(message = "phone number should not be null")
     @Column(columnDefinition = "varchar(255) not null")
     private String phone_number;
+    @NotEmpty(message = "Status should not be empty")
+    @Pattern(regexp = "active|notactive",message = "Status should be active or notactive")
+    @Column(columnDefinition = "varchar(10) not null check(status = 'active' or status ='notactive')")
     private String status;
     @NotNull(message = "permission should not be null")
     @Column(columnDefinition = "varchar(255) not null")

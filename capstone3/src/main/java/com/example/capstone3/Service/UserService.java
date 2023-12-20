@@ -1,8 +1,12 @@
 package com.example.capstone3.Service;
 
 import com.example.capstone3.Api.ApiException;
+import com.example.capstone3.Model.Business;
+import com.example.capstone3.Model.Company;
 import com.example.capstone3.Model.Pass;
 import com.example.capstone3.Model.User;
+import com.example.capstone3.Repository.BusinessRepository;
+import com.example.capstone3.Repository.CompanyRepository;
 import com.example.capstone3.Repository.PassRepository;
 import com.example.capstone3.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +20,8 @@ import java.util.List;
 public class UserService {
     private final UserRepository userRepository;
     private final PassRepository passRepository;
+    private final CompanyRepository companyRepository;
+    private final BusinessRepository businessRepository;
 
 
     public List<User> getUsers(){
@@ -59,6 +65,40 @@ public class UserService {
         }
         pass.setUser(user);
         passRepository.save(pass);
+    }
+
+
+    public void ActivateCompany(Integer user_id , Integer company_id){
+        Company company = companyRepository.findCompaniesByIdAndStatus(company_id,"notactive");
+        User user =userRepository.findUserById(user_id);
+        if(user ==null){
+            throw new ApiException("user id not found");
+        }
+        if(!user.getRole().equals("admin")){
+            throw new ApiException("user not admin");
+        }
+        if(company==null){
+            throw new ApiException("company id not found");
+        }
+
+        company.setStatus("active");
+        companyRepository.save(company);
+    }
+    public void ActivateBusiness(Integer user_id , Integer business_id){
+        Business business =businessRepository.findBusinessByIdAndStatus(business_id,"notactive");
+        User user =userRepository.findUserById(user_id);
+        if(user ==null){
+            throw new ApiException("user id not found");
+        }
+        if(!user.getRole().equals("admin")){
+            throw new ApiException("user not admin");
+        }
+        if(business==null){
+            throw new ApiException("business id not found");
+        }
+
+      business.setStatus("active");
+        businessRepository.save(business);
     }
 
 }

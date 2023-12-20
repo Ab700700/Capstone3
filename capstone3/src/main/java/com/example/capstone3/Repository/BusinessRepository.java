@@ -13,5 +13,7 @@ public interface BusinessRepository extends JpaRepository<Business,Integer> {
 
     List<Business> findBusinessesByStatus(String status);
 
+    Business findBusinessByIdAndStatus(Integer id , String status);
+
 
 }
