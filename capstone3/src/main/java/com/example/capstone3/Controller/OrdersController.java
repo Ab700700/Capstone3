@@ -32,4 +32,14 @@ public class OrdersController {
     public ResponseEntity deleteOrder(@PathVariable Integer id){
         return ResponseEntity.status(HttpStatus.OK).body(ordersService.deleteOrder(id));
     }
+
+    @GetMapping("/get-event-orders/{eventid}")
+    private ResponseEntity getEventOrders(@PathVariable Integer eventid){
+        return ResponseEntity.status(HttpStatus.OK).body(ordersService.getEventOrders(eventid));
+    }
+
+    @PutMapping("/accept-order/{orderid}/{comid}")
+    private ResponseEntity acceptOrder(@PathVariable Integer orderid, @PathVariable Integer comid){
+        return ResponseEntity.status(HttpStatus.OK).body(ordersService.acceptOrder(orderid,comid));
+    }
 }

@@ -23,6 +23,8 @@ public class Orders {
     private Integer capacity;
     @Column(columnDefinition = "varchar(255) not null")
     private String description;
+    @Column(columnDefinition = "varchar(30) not null")
+    private String category;
     @Column(columnDefinition = "varchar(9) not null check(status='accepted' or status ='denied' or status ='pending')")
     private String status;
     @ManyToOne

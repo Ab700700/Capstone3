@@ -28,7 +28,7 @@ public class PlaceService {
         Event event = eventRepository.findEventById(place.getEvent_id());
         if(event == null) throw new ApiException("Event account not found");
 
-       Place place1 =new Place(null,place.getCompanyName(),place.getCategory(),place.getDescription(),null,null,event,null);
+       Place place1 =new Place(null,place.getCompanyName(),place.getCategory(),place.getDescription(),place.getCapacity(),null,null,event,null);
        placeRepository.save(place1);
     }
 

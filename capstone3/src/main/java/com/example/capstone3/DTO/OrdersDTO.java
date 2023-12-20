@@ -24,4 +24,6 @@ public class OrdersDTO {
     @NotEmpty(message = "Status should not be empty")
     @Pattern(regexp = "accepted|denied|pending")
     private String status;
+    @NotEmpty(message = "Category should not be empty")
+    private String category;
 }

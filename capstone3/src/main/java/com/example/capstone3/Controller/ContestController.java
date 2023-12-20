@@ -51,4 +51,9 @@ public class ContestController {
             return ResponseEntity.status(HttpStatus.OK).body(contestService.searchAbove(number));
         }
 
+        @PutMapping("/remove-competitor/{contestid}/{competitorid}")
+        public ResponseEntity removecompetitor(@PathVariable Integer contestid, @PathVariable Integer competitorid){
+            return ResponseEntity.status(HttpStatus.OK).body(contestService.removecompetitor(contestid,competitorid));
+        }
+
 }

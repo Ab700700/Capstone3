@@ -63,7 +63,7 @@ public class ContestService {
         if(user == null|| user.getRole().equals("admin")) throw  new ApiException("User not found or not allowed");
         Contest contest = contestRepository.findContestById(contestid);
         if(contest == null) throw new ApiException("Contest not found");
-        contest.setCompetitors(user.getContests().size());
+        contest.setCompetitors(contest.getCompetitors()+1);
         user.getContests().add(contest);
         contest.getUsers().add(user);
         contestRepository.save(contest);
@@ -81,4 +81,28 @@ public class ContestService {
     public List<Contest> searchAbove(Integer number){
         return contestRepository.findContestByCompetitorsAfter(number);
     }
+
+    public String removecompetitor(Integer contestid, Integer competitorid){
+        User user = userRepository.findUserById(competitorid);
+        Contest contest = contestRepository.findContestById(contestid);
+        for(Contest c : user.getContests()){
+            if(c.getId().equals(contestid)) {
+                c.getUsers().remove(user);
+                contestRepository.save(c);
+            }
+        }
+        for(User u : contest.getUsers()){
+            if(u.getId().equals(competitorid)){
+                u.getContests().remove(contest);
+                userRepository.save(u);
+            }
+        }
+        if(contest.getCompetitors()>0){
+            contest.setCompetitors(contest.getCompetitors()-1);
+            contestRepository.save(contest);
+        }
+
+        return "Competitor removed from contest";
+    }
+
 }
