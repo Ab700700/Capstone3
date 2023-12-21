@@ -49,5 +49,10 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body("business activated");
     }
 
+    @GetMapping("/getContestByUser/{id}")
+    public ResponseEntity getContestByUser(@PathVariable Integer id){
+        return ResponseEntity.status(HttpStatus.OK).body(userService.getContestByUser(id));
+    }
+
 
 }

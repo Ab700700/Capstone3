@@ -29,6 +29,9 @@ public class PassService {
         if(event==null){
             throw new ApiException("event id not found");
         }
+        if(pass.getStart_date().compareTo(pass.getEnd_date())>0){
+            throw new ApiException("not valid date");
+        }
         Pass pass1 = new Pass(null, "notactive", pass.getStart_date(),pass.getEnd_date(),pass.getPrice(),null,event);
         passRepository.save(pass1);
     }

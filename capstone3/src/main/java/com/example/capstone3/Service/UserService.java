@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -104,6 +105,16 @@ public class UserService {
 
       business.setStatus("active");
         businessRepository.save(business);
+    }
+
+
+    public Set<Contest> getContestByUser(Integer id){
+        User user = userRepository.findUserById(id);
+        if(user==null){
+            throw new ApiException("user id not found");
+        }
+
+        return user.getContests();
     }
 
 }

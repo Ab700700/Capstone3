@@ -4,13 +4,14 @@ import com.example.capstone3.Api.ApiException;
 import com.example.capstone3.DTO.EventDTO;
 import com.example.capstone3.Model.Company;
 import com.example.capstone3.Model.Event;
+import com.example.capstone3.Model.Pass;
+import com.example.capstone3.Model.User;
 import com.example.capstone3.Repository.CompanyRepository;
 import com.example.capstone3.Repository.EventRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -30,6 +31,9 @@ public class EventService {
         }
         if(!company.getStatus().equals("active")){
             throw new ApiException("company not active");
+        }
+        if(event.getStart_date().compareTo(event.getEnd_date())>0){
+            throw new ApiException("not valid date");
         }
         Event event1=new Event(null, event.getEvent_name(), event.getStart_date(),event.getEnd_date(),event.getTickets(),event.getCategory(),event.getCity(),null,company,null,null);
         eventRepository.save(event1);
@@ -89,4 +93,20 @@ public class EventService {
         }
         return events;
     }
+
+    public Set<User> getVisitorsForEvent(Integer id){
+        Event event =eventRepository.findEventById(id);
+        Set<User> users = new HashSet<>();
+        if(event==null){
+            throw new ApiException("event id not found");
+        }
+      for(Pass p : event.getPasses()){
+          if(p.getUser()!=null){
+              users.add(p.getUser());
+          }
+
+      }
+      return users;
+    }
+
 }

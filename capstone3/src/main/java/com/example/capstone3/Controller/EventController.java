@@ -58,5 +58,10 @@ public class EventController {
 
         return ResponseEntity.status(HttpStatus.OK).body(eventService.getEventByCity(city));
     }
+    @GetMapping("/getVisitorsForEvent/{id}")
+    public ResponseEntity getVisitorsForEvent(@PathVariable Integer id){
+
+        return ResponseEntity.status(HttpStatus.OK).body(eventService.getVisitorsForEvent(id));
+    }
 }
 
