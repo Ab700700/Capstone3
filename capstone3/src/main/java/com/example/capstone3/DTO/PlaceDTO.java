@@ -14,7 +14,6 @@ public class PlaceDTO {
     private Integer id ;
     @NotNull(message = "event id should not be empty")
     private Integer event_id;
-    @NotEmpty(message = "Company name should not be empty")
     private String companyName;
     @NotEmpty(message = "Category should not be empty")
     private String category;

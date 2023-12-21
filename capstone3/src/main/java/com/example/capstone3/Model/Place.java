@@ -22,7 +22,7 @@ public class Place {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id ;
-    @Column(columnDefinition = "varchar(50) not null unique")
+    @Column(columnDefinition = "varchar(50)  unique")
     private String companyName;
     @Column(columnDefinition = "varchar(30) not null")
     private String category;

@@ -7,6 +7,9 @@ import com.example.capstone3.Repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -30,7 +33,7 @@ public class OrdersService {
         if(event == null) throw  new ApiException("Event not found");
         if(business.getStatus().equals("notactive")) throw new ApiException("User cant make an order");
         if(orders.getCapacity()>place.getCapacity()) throw new ApiException("Place's capacity is not enough for the order");
-        Orders newOrder = new Orders(null,orders.getCompanyName(),orders.getCapacity(),orders.getDescription(),orders.getCategory(),"pending",business,event,place);
+        Orders newOrder = new Orders(null,orders.getCompanyName(),orders.getCapacity(),orders.getDescription(),orders.getCategory(),"pending",LocalDateTime.now(),business,event,place);
         orderRepository.save(newOrder);
 
     }
@@ -42,7 +45,6 @@ public class OrdersService {
         if(orders.getCapacity()> placeRepository.findPlaceById(orders.getPlaceid()).getCapacity()) throw new ApiException("Place's capacity is not enough");
         oldOrder.setDescription(orders.getDescription());
         oldOrder.setCapacity(orders.getCapacity());
-       // oldOrder.setStatus(orders.getStatus());
         oldOrder.setCompanyName(orders.getCompanyName());
         orderRepository.save(oldOrder);
         return"Order updated";
@@ -81,6 +83,25 @@ public class OrdersService {
         return  orderRepository.getOrdersbyeventid(eventid);
     }
 
+    public List<Orders> getOrdersByPlace(Integer placeid){
+        return orderRepository.getOrdersByplaceid(placeid);
+    }
+
+    public List<Orders> getOrdersByStatus(String status){
+        return orderRepository.findOrdersByStatus(status);
+    }
+
+    public List<Orders> ordersAfter(LocalDateTime date){
+        return orderRepository.findOrdersByOrderdateAfter(date);
+    }
+
+    public List<Orders> ordersBefore(LocalDateTime date){
+        return orderRepository.findOrdersByOrderdateBefore(date);
+    }
+
+    public List<Orders> ordersBetween(LocalDateTime date1, LocalDateTime date2){
+        return orderRepository.findOrdersByOrderdateBetween(date1,date2);
+    }
 
 
 }

@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.Set;
 
 @Getter
@@ -26,6 +28,10 @@ public class Contest {
     private String description;
     @Column(columnDefinition = "varchar(9) not null check(status='public' or status='private')")
     private String status;
+    @Column(columnDefinition = "date not null")
+    private LocalDate startdate;
+    @Column(columnDefinition = "date not null")
+    private LocalDate enddate;
        @ManyToOne
    @JoinColumn(name = "place_id",referencedColumnName = "id")
    @JsonIgnore

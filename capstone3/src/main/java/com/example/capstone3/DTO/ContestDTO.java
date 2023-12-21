@@ -5,6 +5,10 @@ import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
+
 @Data
 @AllArgsConstructor
 public class ContestDTO {
@@ -19,4 +23,8 @@ public class ContestDTO {
     @NotEmpty(message = "Status should not be empty")
     @Pattern(regexp = "public|private",message = "Status should be public or private")
     private String status;
+    @NotNull(message = "Start date should not be empty")
+    private LocalDate startdate;
+    @NotNull(message = "End date should not be empty")
+    private LocalDate enddate;
 }
