@@ -8,6 +8,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -23,8 +27,13 @@ public class Orders {
     private Integer capacity;
     @Column(columnDefinition = "varchar(255) not null")
     private String description;
+    @Column(columnDefinition = "varchar(30) not null")
+    private String category;
     @Column(columnDefinition = "varchar(9) not null check(status='accepted' or status ='denied' or status ='pending')")
     private String status;
+    @Column(columnDefinition = "date not null")
+    private LocalDateTime orderdate;
+
     @ManyToOne
     @JoinColumn(name="business_id",referencedColumnName = "id")
     @JsonIgnore

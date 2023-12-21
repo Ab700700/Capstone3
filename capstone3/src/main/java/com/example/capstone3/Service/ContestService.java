@@ -13,7 +13,9 @@ import com.example.capstone3.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -30,7 +32,7 @@ public class ContestService {
     public void addContest(ContestDTO contest){
         Place place = placeRepository.findPlaceById(contest.getPlaceid());
         if(place == null) throw new ApiException("Place not found");
-        Contest contest1 = new Contest(null,0,contest.getDescription(),contest.getStatus(),place,null);
+        Contest contest1 = new Contest(null,0,contest.getDescription(),contest.getStatus(),contest.getStartdate(),contest.getEnddate(),place,null);
         place.getContests().add(contest1);
         placeRepository.save(place);
         contestRepository.save(contest1);
@@ -63,7 +65,7 @@ public class ContestService {
         if(user == null|| user.getRole().equals("admin")) throw  new ApiException("User not found or not allowed");
         Contest contest = contestRepository.findContestById(contestid);
         if(contest == null) throw new ApiException("Contest not found");
-        contest.setCompetitors(user.getContests().size());
+        contest.setCompetitors(contest.getCompetitors()+1);
         user.getContests().add(contest);
         contest.getUsers().add(user);
         contestRepository.save(contest);
@@ -76,9 +78,49 @@ public class ContestService {
     }
 
     public List<Contest> searchBelow(Integer number){
+        if(number<0) throw new ApiException("Wrong number");
         return contestRepository.findContestsByCompetitorsBefore(number);
     }
     public List<Contest> searchAbove(Integer number){
+        if(number<0) throw new ApiException("Wrong number");
         return contestRepository.findContestByCompetitorsAfter(number);
     }
+
+    public String removecompetitor(Integer contestid, Integer competitorid){
+        User user = userRepository.findUserById(competitorid);
+        if(user == null) throw  new ApiException("Competitor not found");
+        Contest contest = contestRepository.findContestById(contestid);
+        if(contest ==null) throw new ApiException("Contest not found");
+        for(Contest c : user.getContests()){
+            if(c.getId().equals(contestid)) {
+                c.getUsers().remove(user);
+                contestRepository.save(c);
+            }
+        }
+        for(User u : contest.getUsers()){
+            if(u.getId().equals(competitorid)){
+                u.getContests().remove(contest);
+                userRepository.save(u);
+            }
+        }
+        if(contest.getCompetitors()>0){
+            contest.setCompetitors(contest.getCompetitors()-1);
+            contestRepository.save(contest);
+        }
+
+        return "Competitor removed from contest";
+    }
+
+    public Set<User> getCompetitorsForContest(Integer contestid){
+        return contestRepository.findContestById(contestid).getUsers();
+    }
+
+    public List<Contest> getContestStartBetween(LocalDate date1, LocalDate date2){
+        return contestRepository.findContestByStartdateBetween(date1,date2);
+    }
+
+    public List<Contest> getContestEndBetween(LocalDate date1, LocalDate date2){
+        return contestRepository.findContestByEnddateBetween(date1,date2);
+    }
+
 }

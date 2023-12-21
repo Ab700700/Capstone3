@@ -5,6 +5,10 @@ import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
+
 @Data
 @AllArgsConstructor
 public class OrdersDTO {
@@ -24,4 +28,8 @@ public class OrdersDTO {
     @NotEmpty(message = "Status should not be empty")
     @Pattern(regexp = "accepted|denied|pending")
     private String status;
+    @NotEmpty(message = "Category should not be empty")
+    private String category;
+    //@NotNull(message = "Order date should not be empty")
+    private LocalDateTime orderdate;
 }

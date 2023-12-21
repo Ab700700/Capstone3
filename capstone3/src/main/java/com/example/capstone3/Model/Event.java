@@ -25,7 +25,7 @@ public class  Event {
     private String event_name;
     @Column(columnDefinition = "date not null")
     private Date start_date;
-    @Column(columnDefinition = "varchar(255) not null")
+    @Column(columnDefinition = "date not null")
     private Date end_date;
     @Column(columnDefinition = "int not null check(tickets>0)")
     private Integer tickets;

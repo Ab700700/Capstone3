@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+
 @RestController
 @RequestMapping("/api/v1/event/contest")
 @RequiredArgsConstructor
@@ -49,6 +51,24 @@ public class ContestController {
         @GetMapping("/search-greater/{number}")
         public ResponseEntity searchAbove(@PathVariable Integer number){
             return ResponseEntity.status(HttpStatus.OK).body(contestService.searchAbove(number));
+        }
+
+        @PutMapping("/remove-competitor/{contestid}/{competitorid}")
+        public ResponseEntity removecompetitor(@PathVariable Integer contestid, @PathVariable Integer competitorid){
+            return ResponseEntity.status(HttpStatus.OK).body(contestService.removecompetitor(contestid,competitorid));
+        }
+
+        @GetMapping("/get-contest-users/{contestid}")
+        public ResponseEntity getComtitorsForContest(@PathVariable Integer contestid){
+            return ResponseEntity.status(HttpStatus.OK).body(contestService.getCompetitorsForContest(contestid));
+        }
+        @GetMapping("/search-start-between/{date1}/{date2}")
+        public ResponseEntity getContestStartBetween(@PathVariable LocalDate date1 , @PathVariable LocalDate date2){
+            return ResponseEntity.status(HttpStatus.OK).body(contestService.getContestStartBetween(date1,date2));
+        }
+        @GetMapping("/search-end-between/{date1}/{date2}")
+        public ResponseEntity getContestEndBetween(@PathVariable LocalDate date1, @PathVariable LocalDate date2){
+            return ResponseEntity.status(HttpStatus.OK).body(contestService.getContestEndBetween(date1,date2));
         }
 
 }
