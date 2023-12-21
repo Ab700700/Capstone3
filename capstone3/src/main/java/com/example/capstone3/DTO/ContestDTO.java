@@ -24,7 +24,9 @@ public class ContestDTO {
     @Pattern(regexp = "public|private",message = "Status should be public or private")
     private String status;
     @NotNull(message = "Start date should not be empty")
-    private LocalDate startdate;
+    @FutureOrPresent(message = "Start date should be present or in the future")
+    private LocalDateTime startdate;
     @NotNull(message = "End date should not be empty")
-    private LocalDate enddate;
+    @FutureOrPresent(message = "end date should be present or in the future")
+    private LocalDateTime enddate;
 }

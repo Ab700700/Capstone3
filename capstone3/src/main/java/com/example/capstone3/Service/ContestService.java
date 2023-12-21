@@ -2,10 +2,7 @@ package com.example.capstone3.Service;
 
 import com.example.capstone3.Api.ApiException;
 import com.example.capstone3.DTO.ContestDTO;
-import com.example.capstone3.Model.Business;
-import com.example.capstone3.Model.Contest;
-import com.example.capstone3.Model.Place;
-import com.example.capstone3.Model.User;
+import com.example.capstone3.Model.*;
 import com.example.capstone3.Repository.BusinessRepository;
 import com.example.capstone3.Repository.ContestRepository;
 import com.example.capstone3.Repository.PlaceRepository;
@@ -25,6 +22,7 @@ public class ContestService {
     private final PlaceRepository placeRepository;
     private final BusinessRepository businessRepository;
     private final UserRepository userRepository;
+
     public List<Contest> getAllContests(){
         return contestRepository.findAll();
     }
@@ -32,6 +30,7 @@ public class ContestService {
     public void addContest(ContestDTO contest){
         Place place = placeRepository.findPlaceById(contest.getPlaceid());
         if(place == null) throw new ApiException("Place not found");
+        if(contest.getEnddate().compareTo(contest.getStartdate())<0 || place.getEvent().getEnd_date().compareTo(place.getEvent().getStart_date())<0) throw new ApiException("Set dates in right way");
         Contest contest1 = new Contest(null,0,contest.getDescription(),contest.getStatus(),contest.getStartdate(),contest.getEnddate(),place,null);
         place.getContests().add(contest1);
         placeRepository.save(place);
@@ -43,8 +42,12 @@ public class ContestService {
         if(oldContest == null) throw new ApiException("Contest is not there");
         Business business = businessRepository.findBusinessByCompanyName(placeRepository.findPlaceById(contest.getPlaceid()).getCompanyName());
         if(business == null) throw  new ApiException("Business account not found");
+        Place place = placeRepository.findPlaceById(contest.getPlaceid());
+        if(contest.getEnddate().compareTo(contest.getStartdate())<0 || place.getEvent().getEnd_date().compareTo(place.getEvent().getStart_date())<0) throw new ApiException("Set dates in right way");
         oldContest.setCompetitors(contest.getCompetitors());
         oldContest.setStatus(contest.getStatus());
+        oldContest.setStartdate(contest.getStartdate());
+        oldContest.setEnddate(contest.getEnddate());
         oldContest.setDescription(contest.getDescription());
         contestRepository.save(oldContest);
         return "Contest updated";
