@@ -5,11 +5,13 @@ import com.example.capstone3.Model.Contest;
 import com.example.capstone3.Service.ContestService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("/api/v1/event/contest")
@@ -63,11 +65,11 @@ public class ContestController {
             return ResponseEntity.status(HttpStatus.OK).body(contestService.getCompetitorsForContest(contestid));
         }
         @GetMapping("/search-start-between/{date1}/{date2}")
-        public ResponseEntity getContestStartBetween(@PathVariable LocalDate date1 , @PathVariable LocalDate date2){
+        public ResponseEntity getContestStartBetween(@PathVariable  @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date1 , @PathVariable  @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date2){
             return ResponseEntity.status(HttpStatus.OK).body(contestService.getContestStartBetween(date1,date2));
         }
         @GetMapping("/search-end-between/{date1}/{date2}")
-        public ResponseEntity getContestEndBetween(@PathVariable LocalDate date1, @PathVariable LocalDate date2){
+        public ResponseEntity getContestEndBetween(@PathVariable  @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date1, @PathVariable  @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date2){
             return ResponseEntity.status(HttpStatus.OK).body(contestService.getContestEndBetween(date1,date2));
         }
 

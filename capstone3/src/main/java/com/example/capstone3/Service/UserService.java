@@ -117,4 +117,48 @@ public class UserService {
         return user.getContests();
     }
 
+    public String followCompany(Integer userid , Integer companyid){
+        User user = userRepository.findUserById(userid);
+        if(user == null) throw new ApiException("User not found");
+        Company company = companyRepository.findCompaniesById(companyid);
+        if(company == null) throw  new ApiException("Company not found");
+        for(Company c : user.getCompanies()){
+            if(c.equals(company)) throw new ApiException("User already follow the company");
+        }
+        user.getCompanies().add(company);
+        company.getUsers().add(user);
+        userRepository.save(user);
+        companyRepository.save(company);
+        return user.getFirstname()+" "+user.getLastname()+" follows "+company.getCompany_name();
+    }
+
+    public String unfollowCompany(Integer userid , Integer companyid){
+        User user= userRepository.findUserById(userid);
+        if(user == null) throw new ApiException("User not found");
+        Company company = companyRepository.findCompaniesById(companyid);
+        if(company == null) throw new ApiException("Company not found");
+        boolean found = false;
+        for(Company c :user.getCompanies()){
+            if(c.equals(company)) found = true;
+        }
+        if(found){
+            for(Company c : user.getCompanies()){
+                if(c.equals(company)){
+                    c.getUsers().remove(user);
+                    companyRepository.save(c);
+                }
+            }
+
+            for(User u: company.getUsers()){
+                if(u.equals(user)){
+                    u.getCompanies().remove(company);
+                    userRepository.save(user);
+                }
+            }
+            return user.getFirstname()+" "+user.getLastname()+" unfollow "+company.getCompany_name();
+        }else{
+            return user.getFirstname()+" "+user.getLastname()+" does not follow "+company.getCompany_name();
+        }
+
+    }
 }

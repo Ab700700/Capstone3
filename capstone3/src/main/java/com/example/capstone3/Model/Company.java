@@ -1,5 +1,6 @@
 package com.example.capstone3.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
@@ -48,4 +49,8 @@ public class Company {
     private Double profit;
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "company")
     private Set<Event>events;
+
+    @ManyToMany
+    @JsonIgnore
+    private Set<User> users;
 }

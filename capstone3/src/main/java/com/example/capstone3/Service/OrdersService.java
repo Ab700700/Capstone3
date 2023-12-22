@@ -28,7 +28,7 @@ public class OrdersService {
         Business business = businessRepository.findBusinessById(orders.getBusinessid());
         if(business == null) throw new ApiException("Business account not found");
         Place  place = placeRepository.findPlaceById(orders.getPlaceid());
-        if(place == null) throw new ApiException("Place not found");
+        if(place == null || !place.getCompanyName().equals(null)) throw new ApiException("Place not found");
         Event event = eventRepository.findEventById(orders.getEventid());
         if(event == null) throw  new ApiException("Event not found");
         if(business.getStatus().equals("notactive")) throw new ApiException("User cant make an order");

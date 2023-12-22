@@ -53,6 +53,14 @@ public class UserController {
     public ResponseEntity getContestByUser(@PathVariable Integer id){
         return ResponseEntity.status(HttpStatus.OK).body(userService.getContestByUser(id));
     }
+    @PutMapping("/follow-company/{userid}/{companyid}")
+    public ResponseEntity followCompany(@PathVariable Integer userid, @PathVariable Integer companyid){
+        return ResponseEntity.status(HttpStatus.OK).body(userService.followCompany(userid,companyid));
+    }
+    @PutMapping("/unfollow-company/{userid}/{companyid}")
+    public ResponseEntity unfollowCompany(@PathVariable Integer userid, @PathVariable Integer companyid){
+        return ResponseEntity.status(HttpStatus.OK).body(userService.unfollowCompany(userid,companyid));
+    }
 
 
 }

@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
@@ -30,7 +31,7 @@ public class ContestService {
     public void addContest(ContestDTO contest){
         Place place = placeRepository.findPlaceById(contest.getPlaceid());
         if(place == null) throw new ApiException("Place not found");
-        if(contest.getEnddate().compareTo(contest.getStartdate())<0 || place.getEvent().getEnd_date().compareTo(place.getEvent().getStart_date())<0) throw new ApiException("Set dates in right way");
+        if(contest.getEnddate().compareTo(contest.getStartdate())<0 || contest.getEnddate().compareTo(place.getEvent().getEnd_date())<0) throw new ApiException("Set dates in right way");
         Contest contest1 = new Contest(null,0,contest.getDescription(),contest.getStatus(),contest.getStartdate(),contest.getEnddate(),place,null);
         place.getContests().add(contest1);
         placeRepository.save(place);
@@ -119,11 +120,17 @@ public class ContestService {
     }
 
     public List<Contest> getContestStartBetween(LocalDate date1, LocalDate date2){
-        return contestRepository.findContestByStartdateBetween(date1,date2);
+        LocalDateTime ldate1,ldate2;
+        ldate1 = date1.atStartOfDay();
+        ldate2 = date2.atStartOfDay();
+        return contestRepository.findContestByStartdateBetween(ldate1,ldate2);
     }
 
     public List<Contest> getContestEndBetween(LocalDate date1, LocalDate date2){
-        return contestRepository.findContestByEnddateBetween(date1,date2);
+        LocalDateTime ldate1,ldate2;
+        ldate1 = date1.atStartOfDay();
+        ldate2 = date2.atStartOfDay();
+        return contestRepository.findContestByEnddateBetween(ldate1,ldate2);
     }
 
 }
