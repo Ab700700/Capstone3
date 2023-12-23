@@ -26,8 +26,12 @@ public class BusinessService {
     public String updateBusiness(Integer id,String password, Business business){
         Business oldBusiness = businessRepository.findBusinessById(id);
         if(oldBusiness == null|| !oldBusiness.getPassword().equals(password)) throw new ApiException("Business not found or password is wrong");
-        business.setId(id);
-        businessRepository.save(business);
+        oldBusiness.setPhoneNumber(business.getPhoneNumber());
+        oldBusiness.setDescription(business.getDescription());
+        oldBusiness.setPassword(business.getPassword());
+        oldBusiness.setCompanyName(business.getCompanyName());
+        oldBusiness.setCommercialRegisterNum(business.getCommercialRegisterNum());
+        businessRepository.save(oldBusiness);
         return "Business updated";
     }
 
