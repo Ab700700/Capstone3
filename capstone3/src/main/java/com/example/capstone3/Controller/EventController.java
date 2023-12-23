@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @RestController
@@ -39,7 +40,7 @@ public class EventController {
         return ResponseEntity.status(HttpStatus.OK).body("event delete");
     }
     @GetMapping("/getEventBetweenDate/{date}")
-    public ResponseEntity getEventBetweenDate(@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date date){
+    public ResponseEntity getEventBetweenDate(@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDateTime date){
 
         return ResponseEntity.status(HttpStatus.OK).body(eventService.getEventBetweenDate(date));
     }

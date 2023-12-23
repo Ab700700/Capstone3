@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Set;
 
@@ -24,9 +25,9 @@ public class  Event {
     @Column(columnDefinition = "varchar(255) not null")
     private String event_name;
     @Column(columnDefinition = "date not null")
-    private Date start_date;
+    private LocalDateTime start_date;
     @Column(columnDefinition = "date not null")
-    private Date end_date;
+    private LocalDateTime end_date;
     @Column(columnDefinition = "int not null check(tickets>0)")
     private Integer tickets;
     @Column(columnDefinition = "varchar(20) not null")

@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -16,9 +17,9 @@ public class EventDTO {
     @NotNull(message = "event name should not be null")
     private String event_name;
     @NotNull(message = "start date should not be null")
-    private Date start_date;
+    private LocalDateTime start_date;
     @NotNull(message = "end date should not be null")
-    private Date end_date;
+    private LocalDateTime end_date;
     @NotNull(message = "tickets should not be null")
     @Positive(message = "tickets should be positive")
     private Integer tickets;

@@ -31,7 +31,8 @@ public class ContestService {
     public void addContest(ContestDTO contest){
         Place place = placeRepository.findPlaceById(contest.getPlaceid());
         if(place == null) throw new ApiException("Place not found");
-        if(contest.getEnddate().compareTo(contest.getStartdate())<0 || contest.getEnddate().compareTo(place.getEvent().getEnd_date())<0) throw new ApiException("Set dates in right way");
+        if(place.getCompanyName()==null) throw new ApiException("No company there");
+        if(contest.getEnddate().isBefore(contest.getStartdate()) || place.getEvent().getEnd_date().isBefore(contest.getStartdate()) || contest.getEnddate().isAfter(place.getEvent().getEnd_date())|| contest.getStartdate().isBefore(place.getEvent().getStart_date())) throw new ApiException("Set dates in right way");
         Contest contest1 = new Contest(null,0,contest.getDescription(),contest.getStatus(),contest.getStartdate(),contest.getEnddate(),place,null);
         place.getContests().add(contest1);
         placeRepository.save(place);
@@ -44,7 +45,7 @@ public class ContestService {
         Business business = businessRepository.findBusinessByCompanyName(placeRepository.findPlaceById(contest.getPlaceid()).getCompanyName());
         if(business == null) throw  new ApiException("Business account not found");
         Place place = placeRepository.findPlaceById(contest.getPlaceid());
-        if(contest.getEnddate().compareTo(contest.getStartdate())<0 || place.getEvent().getEnd_date().compareTo(place.getEvent().getStart_date())<0) throw new ApiException("Set dates in right way");
+        if(contest.getEnddate().isBefore(contest.getStartdate()) || place.getEvent().getEnd_date().isBefore(contest.getStartdate()) || contest.getEnddate().isAfter(place.getEvent().getEnd_date())|| contest.getStartdate().isBefore(place.getEvent().getStart_date())) throw new ApiException("Set dates in right way");
         oldContest.setCompetitors(contest.getCompetitors());
         oldContest.setStatus(contest.getStatus());
         oldContest.setStartdate(contest.getStartdate());
