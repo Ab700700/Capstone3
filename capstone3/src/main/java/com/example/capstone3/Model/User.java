@@ -48,5 +48,7 @@ public class User {
     private Set<Contest> contests;
     @ManyToMany(mappedBy = "users")
     private Set<Company> companies;
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "user")
+    private Set<Message> messages;
 
 }

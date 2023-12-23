@@ -2,12 +2,11 @@ package com.example.capstone3.Service;
 
 import com.example.capstone3.Api.ApiException;
 import com.example.capstone3.DTO.EventDTO;
-import com.example.capstone3.Model.Company;
-import com.example.capstone3.Model.Event;
-import com.example.capstone3.Model.Pass;
-import com.example.capstone3.Model.User;
+import com.example.capstone3.Model.*;
 import com.example.capstone3.Repository.CompanyRepository;
 import com.example.capstone3.Repository.EventRepository;
+import com.example.capstone3.Repository.MessageRepository;
+import com.example.capstone3.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +18,8 @@ import java.util.*;
 public class EventService {
     private final EventRepository eventRepository;
     private final CompanyRepository companyRepository;
+    private final MessageRepository messageRepository;
+    private final UserRepository userRepository;
 
 
     public List<Event> getEvents(){
@@ -35,6 +36,15 @@ public class EventService {
         }
         if(event.getStart_date().compareTo(event.getEnd_date())>0){
             throw new ApiException("not valid date");
+        }
+        if(!company.getUsers().isEmpty()){
+            for (User u: company.getUsers()){
+                Message message = new Message(null,company.getCompany_name()+" new event","new",u);
+                messageRepository.save(message);
+                userRepository.save(u);
+
+
+            }
         }
         Event event1=new Event(null, event.getEvent_name(), event.getStart_date(),event.getEnd_date(),event.getTickets(),event.getCategory(),event.getCity(),null,company,null,null);
         eventRepository.save(event1);
