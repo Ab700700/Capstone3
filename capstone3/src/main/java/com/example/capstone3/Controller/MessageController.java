@@ -31,6 +31,15 @@ public class MessageController {
         messageService.deleteMessage(id);
         return ResponseEntity.status(HttpStatus.OK).body("message delete");
     }
+    @GetMapping("/getByStatus/{id}/{status}")
+    public ResponseEntity getMessageByUserAndStatus(@PathVariable Integer id,@PathVariable String status){
+        return ResponseEntity.status(HttpStatus.OK).body(messageService.getByUserAndStatus(id, status));
+    }
+    @GetMapping("/getMessageById/{id}")
+    public ResponseEntity getMessageById(@PathVariable Integer id){
+        return ResponseEntity.status(HttpStatus.OK).body(messageService.getMessageById(id));
+    }
+
 
 
 
