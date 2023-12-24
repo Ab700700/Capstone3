@@ -38,4 +38,16 @@ public class MessageService {
         }
         messageRepository.delete(message);
     }
+
+    public List<Message> getByUserAndStatus(Integer id,String status){
+        List<Message> messages =messageRepository.findMessageByIdAndStatus(id, status);
+        return messages;
+
+    }
+    public Message getMessageById(Integer id){
+        Message message = messageRepository.findMessageById(id);
+        message.setStatus("seen");
+        messageRepository.save(message);
+        return message;
+    }
 }
