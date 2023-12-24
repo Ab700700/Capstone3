@@ -17,15 +17,16 @@ public class BusinessService {
     public final BusinessRepository businessRepository;
     public final PlaceRepository placeRepository;
 
+    //1
     public List<Business> getAllBusinesses(){
         return businessRepository.findAll();
     }
-
+    //2
     public void addBusiness(Business business){
         business.setStatus("notactive");
         businessRepository.save(business);
     }
-
+    //3
     public String updateBusiness(Integer id,String password, Business business){
         Business oldBusiness = businessRepository.findBusinessById(id);
         if(oldBusiness == null|| !oldBusiness.getPassword().equals(password)) throw new ApiException("Business not found or password is wrong");
@@ -37,7 +38,7 @@ public class BusinessService {
         businessRepository.save(oldBusiness);
         return "Business updated";
     }
-
+    //4
     public String deleteBusiness(Integer id){
         Business business = businessRepository.findBusinessById(id);
         if(business == null) throw new ApiException("Business not found");
@@ -49,11 +50,11 @@ public class BusinessService {
         businessRepository.delete(business);
         return "Business deleted";
     }
-
+    //5
     public List<Business> businessesByStatus(String status){
         return businessRepository.findBusinessesByStatus(status);
     }
-
+    //6
     public Business businessByName(String name){
         return businessRepository.findBusinessByCompanyName(name);
     }

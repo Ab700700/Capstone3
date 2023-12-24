@@ -17,7 +17,7 @@ public class OrdersDTO {
     private Integer placeid;
     private Integer eventid;
     @NotEmpty(message = "Company name should not be empty")
-    @Pattern(regexp = "[a-zA-Z]+",message = "Company name should be letters only")
+    @Pattern(regexp = "[a-zA-Z\s]+",message = "Company name should be letters only")
     private String companyName;
     @NotNull(message = "Capacity should not be empty")
     @Positive(message = "Capacity should be a positive number")
@@ -30,6 +30,5 @@ public class OrdersDTO {
     private String status;
     @NotEmpty(message = "Category should not be empty")
     private String category;
-    //@NotNull(message = "Order date should not be empty")
     private LocalDateTime orderdate;
 }

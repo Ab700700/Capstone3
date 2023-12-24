@@ -25,6 +25,7 @@ public class Business {
     @NotEmpty(message = "Phone number should not be empty")
     @Size(min = 10,max = 10, message = "Phone number should be 10 numbers")
     @Column(columnDefinition = "varchar(10) not null unique")
+    @Pattern(regexp = "05.[0-9]+",message = "Phone number should start with 05 and contains only numbers")
     private String phoneNumber;
     @NotEmpty(message = "Email should not be empty")
     @Email(message = "Email should be valid")

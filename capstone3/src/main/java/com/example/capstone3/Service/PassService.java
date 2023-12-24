@@ -20,12 +20,12 @@ public class PassService {
     private final PassRepository passRepository;
     private final EventRepository eventRepository;
 
-
+    // 43
     public List<Pass> getPasses(){
 
         return passRepository.findAll();
     }
-
+    // 44
     public void addPass(PassDTO pass){
         Event event = eventRepository.findEventById(pass.getEvent_id());
         if(event==null){
@@ -40,7 +40,7 @@ public class PassService {
         Pass pass1 = new Pass(null, "notactive", pass.getStart_date(),pass.getEnd_date(),pass.getPrice(),null,event);
         passRepository.save(pass1);
     }
-
+    // 45
     public void updatePass(Integer id , PassDTO pass){
         Pass oldPass = passRepository.findPassById(id);
 
@@ -52,7 +52,7 @@ public class PassService {
         oldPass.setPrice(pass.getPrice());
         passRepository.save(oldPass);
     }
-
+    // 46
     public void deletePass(Integer id){
         Pass pass = passRepository.findPassById(id);
         if(pass==null){
@@ -60,7 +60,7 @@ public class PassService {
         }
         passRepository.delete(pass);
     }
-
+    // 47
     public List<Pass> getPassByUser(Integer id){
         List<Pass> passes = passRepository.findPassesById(id);
         if(passes.isEmpty()){
@@ -68,7 +68,7 @@ public class PassService {
         }
         return passes;
     }
-
+    // 48
     public List<Pass> getPassByStatus(String string){
         List<Pass> passes = passRepository.findPassByStatus(string);
         if(passes.isEmpty()){
@@ -76,7 +76,7 @@ public class PassService {
         }
         return passes;
     }
-
+    // 49
     public List<Pass> getPassBetweenPrice(Double start_price,Double end_price){
         List<Pass> passes = passRepository.findPassByPriceBetween(start_price, end_price);
         if(passes.isEmpty()){
@@ -84,7 +84,7 @@ public class PassService {
         }
         return passes;
     }
-
+    // 50
     public List<Pass> getPassBetweenDate(LocalDate date){
         LocalDateTime newDate = date.atStartOfDay();
         List<Pass> passes = passRepository.PassByStart_dateAfterAndEnd_dateBefore(newDate);

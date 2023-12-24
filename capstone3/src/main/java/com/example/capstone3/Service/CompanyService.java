@@ -13,16 +13,16 @@ import java.util.List;
 public class CompanyService {
     private final CompanyRepository companyRepository;
 
-
+    // 66
     public List<Company> getCompany(){
         return companyRepository.findAll();
     }
-
+    // 67
     public void addCompany(Company company){
         company.setStatus("notactive");
         companyRepository.save(company);
     }
-
+    // 68
     public void updateCompany(Integer id , Company company){
         Company oldCompany = companyRepository.findCompaniesById(id);
         if(oldCompany==null){
@@ -37,7 +37,7 @@ public class CompanyService {
         oldCompany.setProfit(company.getProfit());
         companyRepository.save(oldCompany);
     }
-
+    // 69
     public void deleteCompany(Integer id){
         Company company = companyRepository.findCompaniesById(id);
         if(company==null){
@@ -45,7 +45,7 @@ public class CompanyService {
         }
         companyRepository.delete(company);
     }
-
+    // 70
     public List<Company> getCompanyByStatus(String status){
         List<Company> companies =companyRepository.findCompaniesByStatus(status);
         if(companies.isEmpty()){
@@ -53,6 +53,7 @@ public class CompanyService {
         }
         return companies;
     }
+    //71
     public List<Company> getByCompanyName(String name){
         List<Company> companies =companyRepository.findCompaniesByCompany_name(name);
         if(companies.isEmpty()){

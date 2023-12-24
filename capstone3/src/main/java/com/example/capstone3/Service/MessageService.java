@@ -12,15 +12,15 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MessageService {
     private final MessageRepository messageRepository;
-
+    // 51
     public List<Message> getMessages(){
         return messageRepository.findAll();
     }
-
+    // 52
     public void addMessage(Message message){
         messageRepository.save(message);
     }
-
+    // 53
     public void updateMessage(Integer id,Message message){
         Message message1 = messageRepository.findMessageById(id);
         if(message1==null){
@@ -30,7 +30,7 @@ public class MessageService {
         message1.setStatus(message.getStatus());
         messageRepository.save(message1);
     }
-
+    // 54
     public void deleteMessage(Integer id){
         Message message = messageRepository.findMessageById(id);
         if(message==null){
@@ -38,12 +38,13 @@ public class MessageService {
         }
         messageRepository.delete(message);
     }
-
+    // 55
     public List<Message> getByUserAndStatus(Integer id,String status){
         List<Message> messages =messageRepository.findMessageByIdAndStatus(id, status);
         return messages;
 
     }
+    // 56
     public Message getMessageById(Integer id){
         Message message = messageRepository.findMessageById(id);
         message.setStatus("seen");

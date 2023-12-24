@@ -19,7 +19,7 @@ public class UserService {
     private final BusinessRepository businessRepository;
     private final EventRepository eventRepository;
 
-
+    // 36
     public List<User> getUsers(){
         return userRepository.findAll();
     }
@@ -28,7 +28,7 @@ public class UserService {
         user.setRole("visitor");
         userRepository.save(user);
     }
-
+    // 37
     public void updateUser(Integer id , User user,String password){
         User oldUser = userRepository.findUserById(id);
         if(oldUser==null||!oldUser.getPassword().equals(password)){
@@ -41,7 +41,7 @@ public class UserService {
         oldUser.setPhone_number(user.getPhone_number());
         userRepository.save(oldUser);
     }
-
+    //38
     public void deleteUser(Integer id){
         User user = userRepository.findUserById(id);
         if(user==null){
@@ -49,7 +49,7 @@ public class UserService {
         }
         userRepository.delete(user);
     }
-
+    // 39
     public void assignUserToPass(Integer user_id,Integer pass_id){
         Pass pass = passRepository.findPassById(pass_id);
         User user =userRepository.findUserById(user_id);
@@ -73,7 +73,7 @@ public class UserService {
         companyRepository.save(company);
     }
 
-
+    // 40
     public void ActivateCompany(Integer user_id , Integer company_id){
         Company company = companyRepository.findCompaniesByIdAndStatus(company_id,"notactive");
         User user =userRepository.findUserById(user_id);
@@ -90,6 +90,7 @@ public class UserService {
         company.setStatus("active");
         companyRepository.save(company);
     }
+    //41
     public void ActivateBusiness(Integer user_id , Integer business_id){
         Business business =businessRepository.findBusinessByIdAndStatus(business_id,"notactive");
         User user =userRepository.findUserById(user_id);
@@ -107,7 +108,7 @@ public class UserService {
         businessRepository.save(business);
     }
 
-
+    //42
     public Set<Contest> getContestByUser(Integer id){
         User user = userRepository.findUserById(id);
         if(user==null){
@@ -116,6 +117,11 @@ public class UserService {
 
         return user.getContests();
     }
+
+
+    /*-----------------*/
+
+    //34
 
     public String followCompany(Integer userid , Integer companyid){
         User user = userRepository.findUserById(userid);
@@ -132,6 +138,7 @@ public class UserService {
         return user.getFirstname()+" "+user.getLastname()+" follows "+company.getCompany_name();
     }
 
+    //35
     public String unfollowCompany(Integer userid , Integer companyid){
         User user= userRepository.findUserById(userid);
         if(user == null) throw new ApiException("User not found");

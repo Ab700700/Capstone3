@@ -25,7 +25,7 @@ public class Contest {
 
     @Column(columnDefinition = "int not null")
     private Integer competitors;
-    @Column(columnDefinition = "varchar(255) not null")
+    @Column(columnDefinition = "varchar(150) not null")
     private String description;
     @Column(columnDefinition = "varchar(9) not null check(status='public' or status='private')")
     private String status;

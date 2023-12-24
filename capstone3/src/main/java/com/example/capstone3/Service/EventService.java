@@ -20,11 +20,11 @@ public class EventService {
     private final UserRepository userRepository;
     private final PassRepository passRepository;
 
-
+    // 57
     public List<Event> getEvents(){
         return eventRepository.findAll();
     }
-
+    // 58
     public void addEvent(EventDTO event){
         Company company = companyRepository.findCompaniesById(event.getCompany_id());
         if(company==null){
@@ -48,7 +48,7 @@ public class EventService {
         Event event1=new Event(null, event.getEvent_name(), event.getStart_date(),event.getEnd_date(),event.getTickets(),event.getCategory(),event.getCity(),null,company,null,null);
         eventRepository.save(event1);
     }
-
+    // 59
     public void updateEvent(Integer id , EventDTO event){
         Event oldEvent = eventRepository.findEventById(id);
         if(oldEvent==null){
@@ -60,7 +60,7 @@ public class EventService {
         oldEvent.setTickets(event.getTickets());
         eventRepository.save(oldEvent);
     }
-
+    // 60
     public void deleteEvent(Integer id){
         Event event =eventRepository.findEventById(id);
 
@@ -80,7 +80,7 @@ public class EventService {
 
     }
 
-
+    //61
     public List<Event> getEventBetweenDate(LocalDate date){
         LocalDateTime newDate=date.atStartOfDay();
         List<Event> events = eventRepository.EventByStart_dateAfterAndEnd_dateBefore(newDate);
@@ -89,7 +89,7 @@ public class EventService {
         }
         return events;
     }
-
+    //62
     public List<Event> getEventAvailable(){
         List<Event> events = eventRepository.findEventByTicketsGreaterThan(0);
         if(events.isEmpty()){
@@ -97,6 +97,7 @@ public class EventService {
         }
         return events;
     }
+    // 63
     public List<Event> getEventByCategory(String category){
         List<Event> events = eventRepository.findEventByCategory(category);
         if(events.isEmpty()){
@@ -104,6 +105,7 @@ public class EventService {
         }
         return events;
     }
+    // 64
     public List<Event> getEventByCity(String city){
         List<Event> events = eventRepository.findEventByCity(city);
         if(events.isEmpty()){
@@ -111,7 +113,7 @@ public class EventService {
         }
         return events;
     }
-
+    // 65
     public Set<User> getVisitorsForEvent(Integer id){
         Event event =eventRepository.findEventById(id);
         Set<User> users = new HashSet<>();

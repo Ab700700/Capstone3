@@ -19,6 +19,8 @@ public class PlaceService {
     private  final PlaceRepository placeRepository;
     private  final BusinessRepository businessRepository;
     private final EventRepository eventRepository;
+
+    //29
     public List<Place> getAllPlaces(){
        return placeRepository.findAll();
     }
@@ -31,7 +33,7 @@ public class PlaceService {
        Place place1 =new Place(null,null,place.getCategory(),place.getDescription(),place.getCapacity(),null,null,event,null);
        placeRepository.save(place1);
     }
-
+    //30
     public String updatePlace(Integer id,PlaceDTO p){
         Place place = placeRepository.findPlaceById(id);
         if(place == null) throw  new ApiException("Place not found");
@@ -42,18 +44,18 @@ public class PlaceService {
         placeRepository.save(place);
         return "Place updated";
     }
-
+    //31
     public String deletePlace(Integer id){
         Place place = placeRepository.findPlaceById(id);
         if(place == null) throw  new ApiException("Place not found");
         placeRepository.delete(place);
         return "Place deleted";
     }
-
+    //32
     public List<Place> searchByCompanyName(String name){
         return placeRepository.findPlacesByCompanyName(name);
     }
-
+    //33
     public List<Place> searchByCategory(String category){
         return placeRepository.findPlacesByCategoryStartsWith(category);
     }

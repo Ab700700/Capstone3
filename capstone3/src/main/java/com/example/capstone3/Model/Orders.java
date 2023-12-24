@@ -21,7 +21,7 @@ public class Orders {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(columnDefinition = "varchar(50) not null unique")
+    @Column(columnDefinition = "varchar(50) not null ")
     private String companyName;
     @Column(columnDefinition = "int not null")
     private Integer capacity;
