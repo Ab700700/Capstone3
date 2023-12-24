@@ -69,7 +69,7 @@ public class OrdersService {
         place.setDescription(orders.getDescription());
         orders.setStatus("accepted");
         for(Orders o : place.getOrders()){
-            if(o.getId()!=orderid){
+            if(!o.getId().equals(orderid)){
                 o.setStatus("denied");
                 orderRepository.save(o);
             }

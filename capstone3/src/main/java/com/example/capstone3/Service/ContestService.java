@@ -64,10 +64,10 @@ public class ContestService {
 
     public String userAssignToContest(Integer uid, Integer contestid){
         User user = userRepository.findUserById(uid);
+        if(user == null|| user.getRole().equals("admin")) throw  new ApiException("User not found or not allowed");
         for(Contest c : user.getContests()){
             if(c.getId().equals(contestid)) throw  new ApiException("User already there");
         }
-        if(user == null|| user.getRole().equals("admin")) throw  new ApiException("User not found or not allowed");
         Contest contest = contestRepository.findContestById(contestid);
         if(contest == null) throw new ApiException("Contest not found");
         contest.setCompetitors(contest.getCompetitors()+1);
