@@ -28,7 +28,7 @@ public class OrdersService {
         Business business = businessRepository.findBusinessById(orders.getBusinessid());
         if(business == null) throw new ApiException("Business account not found");
         Place  place = placeRepository.findPlaceById(orders.getPlaceid());
-        if(place == null || !place.getCompanyName().equals(null)) throw new ApiException("Place not found");
+        if(place == null || place.getCompanyName() != null) throw new ApiException("Place not found");
         Event event = eventRepository.findEventById(orders.getEventid());
         if(event == null) throw  new ApiException("Event not found");
         if(business.getStatus().equals("notactive")) throw new ApiException("User cant make an order");
@@ -91,16 +91,21 @@ public class OrdersService {
         return orderRepository.findOrdersByStatus(status);
     }
 
-    public List<Orders> ordersAfter(LocalDateTime date){
-        return orderRepository.findOrdersByOrderdateAfter(date);
+    public List<Orders> ordersAfter(LocalDate date){
+        LocalDateTime newDate = date.atStartOfDay();
+        return orderRepository.findOrdersByOrderdateAfter(newDate);
     }
 
-    public List<Orders> ordersBefore(LocalDateTime date){
-        return orderRepository.findOrdersByOrderdateBefore(date);
+    public List<Orders> ordersBefore(LocalDate date){
+        LocalDateTime newDate = date.atStartOfDay();
+        return orderRepository.findOrdersByOrderdateBefore(newDate);
     }
 
-    public List<Orders> ordersBetween(LocalDateTime date1, LocalDateTime date2){
-        return orderRepository.findOrdersByOrderdateBetween(date1,date2);
+    public List<Orders> ordersBetween(LocalDate date1, LocalDate date2){
+        LocalDateTime newDate1,newDate2;
+        newDate1 = date1.atStartOfDay();
+        newDate2 = date2.atStartOfDay();
+        return orderRepository.findOrdersByOrderdateBetween(newDate1,newDate2);
     }
 
 

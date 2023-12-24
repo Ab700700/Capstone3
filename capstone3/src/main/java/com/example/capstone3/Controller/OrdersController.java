@@ -58,15 +58,15 @@ public class OrdersController {
         return ResponseEntity.status(HttpStatus.OK).body(ordersService.getOrdersByStatus(status));
     }
     @GetMapping("/search-after/{date}")
-    public ResponseEntity ordersAfter(@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDateTime date){
+    public ResponseEntity ordersAfter(@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date){
         return ResponseEntity.status(HttpStatus.OK).body(ordersService.ordersAfter(date));
     }
     @GetMapping("/search-before/{date}")
-    public ResponseEntity ordersBefore(@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDateTime date){
+    public ResponseEntity ordersBefore(@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date){
         return ResponseEntity.status(HttpStatus.OK).body(ordersService.ordersBefore(date));
     }
     @GetMapping("/search-between/{date1}/{date2}")
-    public ResponseEntity ordersBetween(@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDateTime date1, @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDateTime date2){
+    public ResponseEntity ordersBetween(@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date1, @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date2){
         return ResponseEntity.status(HttpStatus.OK).body(ordersService.ordersBetween(date1,date2));
     }
 }
