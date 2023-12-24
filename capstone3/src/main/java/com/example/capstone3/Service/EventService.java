@@ -3,10 +3,7 @@ package com.example.capstone3.Service;
 import com.example.capstone3.Api.ApiException;
 import com.example.capstone3.DTO.EventDTO;
 import com.example.capstone3.Model.*;
-import com.example.capstone3.Repository.CompanyRepository;
-import com.example.capstone3.Repository.EventRepository;
-import com.example.capstone3.Repository.MessageRepository;
-import com.example.capstone3.Repository.UserRepository;
+import com.example.capstone3.Repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +18,7 @@ public class EventService {
     private final CompanyRepository companyRepository;
     private final MessageRepository messageRepository;
     private final UserRepository userRepository;
+    private final PassRepository passRepository;
 
 
     public List<Event> getEvents(){
@@ -65,14 +63,21 @@ public class EventService {
 
     public void deleteEvent(Integer id){
         Event event =eventRepository.findEventById(id);
+
+        if(event==null){
+            throw new ApiException("event id not found");
+        }
         Company company = companyRepository.findCompaniesById(event.getCompany().getId());
-        if(event==null || company==null){
-            throw new ApiException("event or company id not found");
+        if(company==null){
+            throw new ApiException("company id not found");
         }
 
+
+
         company.setEvents(null);
-        eventRepository.delete(event);
         companyRepository.save(company);
+        eventRepository.delete(event);
+
     }
 
 
