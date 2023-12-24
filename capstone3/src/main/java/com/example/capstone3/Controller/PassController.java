@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @RestController
@@ -57,7 +58,7 @@ public class PassController {
         return ResponseEntity.status(HttpStatus.OK).body(passService.getPassBetweenPrice(start_price, end_price));
     }
     @GetMapping("/getBetweenDate/{date}")
-    public ResponseEntity getPassBetweenDate(@PathVariable@DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
+    public ResponseEntity getPassBetweenDate(@PathVariable@DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date) {
 
         return ResponseEntity.status(HttpStatus.OK).body(passService.getPassBetweenDate(date));
     }

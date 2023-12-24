@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -19,5 +20,5 @@ public interface PassRepository extends JpaRepository<Pass,Integer> {
     List<Pass> findPassByPriceBetween(Double start_price,Double end_price);
 
     @Query("select p from Pass p where p.start_date<?1 and p.end_date>?1")
-    List<Pass> PassByStart_dateAfterAndEnd_dateBefore(Date  date);
+    List<Pass> PassByStart_dateAfterAndEnd_dateBefore(LocalDateTime date);
 }

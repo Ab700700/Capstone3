@@ -6,6 +6,7 @@ import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -19,9 +20,9 @@ public class PassDTO {
     @NotNull(message = "pass status should not be null")
     private String status;
     @NotNull(message = "start date should not be null")
-    private Date start_date;
+    private LocalDateTime start_date;
     @NotNull(message = "end date should not be null")
-    private Date end_date;
+    private LocalDateTime end_date;
     @NotNull(message = "price should not be null")
     @PositiveOrZero(message = "price should be positive or zero")
     private Double price;

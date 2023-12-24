@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @AllArgsConstructor
@@ -25,10 +26,10 @@ public class Pass {
     private String status;
     @NotNull(message = "start date should not be null")
     @Column(columnDefinition = "date not null")
-    private Date start_date;
+    private LocalDateTime start_date;
     @NotNull(message = "end date should not be null")
     @Column(columnDefinition = "date not null")
-    private Date end_date;
+    private LocalDateTime end_date;
     @NotNull(message = "price should not be null")
     @PositiveOrZero(message = "price should be positive or zero")
     @Column(columnDefinition = "int not null check(price>=0)")

@@ -9,6 +9,8 @@ import com.example.capstone3.Repository.PassRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -31,6 +33,9 @@ public class PassService {
         }
         if(pass.getStart_date().compareTo(pass.getEnd_date())>0){
             throw new ApiException("not valid date");
+        }
+        if(pass.getStart_date().compareTo(event.getStart_date())<0 || pass.getEnd_date().compareTo(event.getEnd_date())>0){
+            throw new ApiException("not valid pass date");
         }
         Pass pass1 = new Pass(null, "notactive", pass.getStart_date(),pass.getEnd_date(),pass.getPrice(),null,event);
         passRepository.save(pass1);
@@ -80,9 +85,9 @@ public class PassService {
         return passes;
     }
 
-    public List<Pass> getPassBetweenDate(Date date){
-
-        List<Pass> passes = passRepository.PassByStart_dateAfterAndEnd_dateBefore(date);
+    public List<Pass> getPassBetweenDate(LocalDate date){
+        LocalDateTime newDate = date.atStartOfDay();
+        List<Pass> passes = passRepository.PassByStart_dateAfterAndEnd_dateBefore(newDate);
         if(passes.isEmpty()){
             throw new ApiException("no passes between these date");
         }

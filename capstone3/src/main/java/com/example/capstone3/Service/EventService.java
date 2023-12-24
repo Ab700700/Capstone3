@@ -10,6 +10,7 @@ import com.example.capstone3.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -75,8 +76,9 @@ public class EventService {
     }
 
 
-    public List<Event> getEventBetweenDate(LocalDateTime date){
-        List<Event> events = eventRepository.EventByStart_dateAfterAndEnd_dateBefore(date);
+    public List<Event> getEventBetweenDate(LocalDate date){
+        LocalDateTime newDate=date.atStartOfDay();
+        List<Event> events = eventRepository.EventByStart_dateAfterAndEnd_dateBefore(newDate);
         if(events.isEmpty()){
             throw new ApiException("no events between this date");
         }
